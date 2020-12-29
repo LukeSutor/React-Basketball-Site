@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { getItems, deleteItem } from '../actions/itemActions';
+import { deleteItem } from '../actions/itemActions';
 
 class Post extends Component {
 
@@ -26,7 +26,7 @@ class Post extends Component {
             <p className="mx-auto w-20 text-gray-500 text-xs">ASSISTS</p>
             <li className={`mx-auto text-xl font-semibold w-12 h-12 flex items-center justify-center border-2 border-black rounded-full 
               ${ this.props.post.assists < 3 ? "text-red-700" : ""} 
-              ${ this.props.post.assists > 10 ? "text-green-500" : ""}`}>
+              ${ this.props.post.assists > 9 ? "text-green-500" : ""}`}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Basketball_Clipart.svg/1035px-Basketball_Clipart.svg.png" className="absolute h-12 w-12 opacity-30 hover:opacity-40" alt=""/>
               {this.props.post.assists}</li>
           </div>
@@ -34,7 +34,7 @@ class Post extends Component {
             <p className="mx-auto w-20 text-gray-500 text-xs">REBOUNDS</p>
             <li className={`mx-auto text-xl font-semibold w-12 h-12 flex items-center justify-center border-2 border-black rounded-full 
               ${ this.props.post.rebounds < 3 ? "text-red-700" : ""} 
-              ${ this.props.post.rebounds > 10 ? "text-green-500" : ""}`}>
+              ${ this.props.post.rebounds > 9 ? "text-green-500" : ""}`}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Basketball_Clipart.svg/1035px-Basketball_Clipart.svg.png" className="absolute h-12 w-12 opacity-30 hover:opacity-40" alt=""/>
               {this.props.post.rebounds}</li>
           </div>

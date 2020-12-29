@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { getItems, deleteItem } from '../actions/itemActions';
+import { getItems } from '../actions/itemActions';
 import Post from './Post';
 import PropTypes from 'prop-types';
 
@@ -16,7 +16,7 @@ class Dashboard extends Component {
       <div className="py-4">
         <ul className="flex flex-col items-center">
           {items.map(( post ) => (
-            <Post post={ post } />
+            <Post key={post._id} post={ post } />
           ))}
         </ul>
       </div>
@@ -34,4 +34,4 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, 
-  { getItems, deleteItem })(Dashboard);
+  { getItems })(Dashboard);
