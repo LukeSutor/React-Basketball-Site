@@ -19,29 +19,31 @@ class Navbar extends Component {
           <ul className="hidden md:flex justify-start md:w-1 md:flex-1">
             <li className="font-medium px-4 py-2 rounded-full hover:bg-gray-100">
               <NavLink exact to='/'
-              activeClassName="text-purple-500">Home</NavLink>
+              activeClassName="text-green-700 border-b-2 border-green-700">Home</NavLink>
             </li>
             <li className="font-medium px-4 py-2 rounded-full hover:bg-gray-100">
               <NavLink to='/dashboard'
-              activeClassName="text-purple-500">Dashboard</NavLink>
+              activeClassName="text-green-700 border-b-2 border-green-700">Dashboard</NavLink>
             </li>
             <li className="font-medium px-4 py-2 rounded-full hover:bg-gray-100">
               <NavLink to='/upload'
-              activeClassName="text-purple-500">Upload</NavLink>
+              activeClassName="text-green-700 border-b-2 border-green-700">Upload</NavLink>
             </li>
             <li className="font-medium px-4 py-2 rounded-full hover:bg-gray-100">
               <NavLink to='/profile'
-              activeClassName="text-purple-500">Profile</NavLink>
+              activeClassName="text-green-700 border-b-2 border-green-700">Profile</NavLink>
             </li>
           </ul>
           <ul className="hidden md:flex justify-end lg:w-0 lg:flex-1">
             <li>
-              <NavLink to='/' 
-              className="font-medium whitespace-nowrap text-purple-500 hover:text-purple-600 px-4 py-2 border-2 border-purple-500 hover:border-purple-600 rounded-full" 
-              activeClassName="text-purple-600 border-purple-600">Sign In</NavLink>
+              <NavLink exact to='/' 
+              className="font-medium whitespace-nowrap text-green-600 hover:text-green-700 px-4 py-2 border-2 border-green-600 hover:border-green-700 rounded-full" 
+              activeClassName="text-green-700 border-green-700">Sign In</NavLink>
             </li>
             <li>
-              <NavLink to='/' className="font-medium whitespace-nowrap text-white ml-4 px-4 py-2 border-transparent rounded-full shadow-sm bg-purple-500 hover:bg-purple-600">Register</NavLink>
+              <NavLink exact to='/' 
+              className="font-medium whitespace-nowrap text-white ml-4 px-4 py-2 border-transparent rounded-full shadow-sm bg-green-600 hover:bg-green-700"
+              activeClassName="bg-green-700">Register</NavLink>
             </li>
           </ul>
           <div>

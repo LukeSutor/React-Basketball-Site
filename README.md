@@ -1,2 +1,3 @@
-# React Basketall Stats App
-App to store basketball stats and/or videos made using the MERN stack.
+# React Basketall Stats Site
+Website to store basketball stats made using the MERN stack.
+MongoDB backend and database mixed with a React-Redux frontend.
