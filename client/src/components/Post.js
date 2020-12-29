@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { getItems, deleteItem } from '../actions/itemActions';
 
 class Post extends Component {
 
   onDeleteClick = (id) => {
-    this.props.post.deleteItem(id);
+    this.props.deleteItem(id);
   }
 
   render() {
@@ -53,12 +55,16 @@ class Post extends Component {
               {this.props.post.blocks}</li>
           </div>
         </div>
-        {/* <button 
-          onClick={this.onDeleteClick.bind(this, this.props.post.id)}
-          >&times;</button> */}
+        <button 
+          onClick={this.onDeleteClick.bind(this, this.props.post._id)}
+          >&times;</button>
       </div>
     );
   }
 }
 
-export default Post;
+const mapStateToProps = (state) => ({
+  item: state.item
+})
+
+export default connect(mapStateToProps, { deleteItem })(Post);
