@@ -70,13 +70,13 @@ class Upload extends Component {
               <hr className="w-5/6 mx-auto" />
               <div className="mx-4 my-4">
                 <input className="" type="file" accept="video/*" id="videoUpload" hidden />
-                <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-green-600 hover:bg-green-700"
+                <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark"
                   type="button"
                   value="Add a Video"
                   onClick={this.uploadVideo} />
               </div>
               <div className="mx-4 my-4">
-                <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-green-600 hover:bg-green-700" 
+                <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark" 
                 type="button"
                 value="Submit"
                 onClick={this.onSubmit} />
