@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { addItem } from '../actions/itemActions';
+import { withAuth0 } from '@auth0/auth0-react';
 
 class Upload extends Component {
   state = {
@@ -43,48 +44,51 @@ class Upload extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth0;
     return (
-      <div>
-        <div className="bg-white w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4">
-          <form className="w-full md:w-3/4 mx-auto">
-            <div className="py-4">
-              <h2 className="text-2xl font-semibold mx-5">Upload</h2>
-              <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                <input className="px-4 w-full outline-none h-10" type="text" id="name" placeholder="Name" onChange={this.onChange}/>
+      isAuthenticated && (
+        <div>
+          <div className="bg-white w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4">
+            <form className="w-full md:w-3/4 mx-auto">
+              <div className="py-4">
+                <h2 className="text-2xl font-semibold mx-5">Upload</h2>
+                <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
+                  <input className="px-4 w-full outline-none h-10" type="text" id="name" placeholder="Name" onChange={this.onChange} />
+                </div>
+                <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
+                  <input className="px-4 w-full outline-none h-10" type="number" id="points" placeholder="Points" onChange={this.onChange} />
+                </div>
+                <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
+                  <input className="px-4 w-full outline-none h-10" type="number" id="assists" placeholder="Assists" onChange={this.onChange} />
+                </div>
+                <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
+                  <input className="px-4 w-full outline-none h-10" type="number" id="rebounds" placeholder="Rebounds" onChange={this.onChange} />
+                </div>
+                <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
+                  <input className="px-4 w-full outline-none h-10" type="number" id="steals" placeholder="Steals" onChange={this.onChange} />
+                </div>
+                <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
+                  <input className="px-4 w-full outline-none h-10" type="number" id="blocks" placeholder="Blocks" onChange={this.onChange} />
+                </div>
+                <hr className="w-5/6 mx-auto" />
+                <div className="mx-4 my-4">
+                  <input className="" type="file" accept="video/*" id="videoUpload" hidden />
+                  <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark"
+                    type="button"
+                    value="Add a Video"
+                    onClick={this.uploadVideo} />
+                </div>
+                <div className="mx-4 my-4">
+                  <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark"
+                    type="button"
+                    value="Submit"
+                    onClick={this.onSubmit} />
+                </div>
               </div>
-              <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                <input className="px-4 w-full outline-none h-10" type="number" id="points" placeholder="Points" onChange={this.onChange}/>
-              </div>
-              <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                <input className="px-4 w-full outline-none h-10" type="number" id="assists" placeholder="Assists" onChange={this.onChange}/>
-              </div>
-              <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                <input className="px-4 w-full outline-none h-10" type="number" id="rebounds" placeholder="Rebounds" onChange={this.onChange}/>
-              </div>
-              <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                <input className="px-4 w-full outline-none h-10" type="number" id="steals" placeholder="Steals" onChange={this.onChange}/>
-              </div>
-              <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                <input className="px-4 w-full outline-none h-10" type="number" id="blocks" placeholder="Blocks" onChange={this.onChange}/>
-              </div>
-              <hr className="w-5/6 mx-auto" />
-              <div className="mx-4 my-4">
-                <input className="" type="file" accept="video/*" id="videoUpload" hidden />
-                <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark"
-                  type="button"
-                  value="Add a Video"
-                  onClick={this.uploadVideo} />
-              </div>
-              <div className="mx-4 my-4">
-                <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark" 
-                type="button"
-                value="Submit"
-                onClick={this.onSubmit} />
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
+      )
     );
   }
 }
@@ -93,4 +97,4 @@ const mapStateToProps = state => ({
   item: state.item
 });
 
-export default connect(mapStateToProps, { addItem })(Upload);
+export default connect(mapStateToProps, { addItem })(withAuth0(Upload));

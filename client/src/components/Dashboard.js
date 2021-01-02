@@ -11,6 +11,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    console.log(this.props)
     const { items } = this.props.item;
     return(
       <div className="py-4">

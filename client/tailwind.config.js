@@ -13,6 +13,7 @@ module.exports = {
   },
   variants: {
     extend: {
+      borderStyle: ['focus', 'active'],
       translate: ['motion-reduce'],
       transform: ['hover', 'focus'],
     },

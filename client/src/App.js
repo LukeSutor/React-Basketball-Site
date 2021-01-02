@@ -4,9 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import Upload from './components/Upload';
-import Profile from './components/Profile';
-import SignIn from './components/SignIn';
-import Register from './components/Register';
+import ProfilePage from './components/ProfilePage';
 import './App.css';
 
 import { Provider } from 'react-redux';
@@ -21,9 +19,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/upload' component={Upload} />
-          <Route path='/profile' component={Profile} />
-          <Route path='/signin' component={SignIn} />
-          <Route path='/register' component={Register} />
+          <Route path='/profile' component={ProfilePage} />
         </BrowserRouter>
       </div>
     </Provider>
