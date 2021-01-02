@@ -9,7 +9,7 @@ function profileReducer(state = initialState, action) {
     case GET_PROFILES:
       return {
         ...state,
-        profiles: action.payload
+        profiles: action.payload.filter(profile => profile.email === action.payload2)
       }
     case ADD_PROFILE:
       return {

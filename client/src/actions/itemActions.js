@@ -40,12 +40,13 @@ export const setItemsLoading = () => {
 };
 
 // Profile actions
-export const getProfiles = () => dispatch => {
+export const getProfiles = (email) => dispatch => {
   axios
-    .get('/api/profiles', { params: { team: "Team Dynasty" }})
+    .get('/api/profiles')
     .then(res => dispatch({
       type: GET_PROFILES,
-      payload: res.data
+      payload: res.data,
+      payload2: email
     }))
 };
 

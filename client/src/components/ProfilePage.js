@@ -30,7 +30,7 @@ class ProfilePage extends Component {
   }
 
   componentDidMount() {
-    this.props.getProfiles();
+    this.props.getProfiles(this.state.email);
   }
 
   onSubmit = e => {
@@ -47,23 +47,28 @@ class ProfilePage extends Component {
     this.props.addProfile(newProfile)
 
     // Redirect user to dashboard
-    this.props.history.push('/dashboard')
+    this.props.history.push('/')
   }
   render() {
     const { isAuthenticated } = this.props.auth0;
-    console.log(this.props)
+    console.log(this.props);
+    const profile = this.props.profile.profiles;
+    console.log(profile);
     return (
       isAuthenticated && (
         <div>
           <div className="bg-white w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4">
-            <div className="w-2/3 py-4 mx-auto">
-              <p className="font-medium">Welcome,</p>
-            </div>
+            {profile.map(({ profileName, team, email }) => (
+              <div key={email} className="w-2/3 py-4 mx-auto">
+                <p className="font-medium">Welcome, {profileName}</p>
+                <p className="font-medium">Team: {team}</p>
+              </div>
+            ))}
           </div>
           <div className="bg-white w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4">
             <form className="w-full md:w-3/4 mx-auto">
               <div className="py-4">
-                <h2 className="text-2xl font-semibold mx-5">Profile</h2>
+                <h2 className="text-2xl font-semibold mx-5">Create Profile</h2>
                 <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
                   <input className="px-4 w-full outline-none h-10" type="text" id="profileName" placeholder="Name" onChange={this.onChange} />
                 </div>
@@ -73,7 +78,7 @@ class ProfilePage extends Component {
                 <div className="mx-4 my-4">
                   <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark"
                     type="button"
-                    value="Submit"
+                    value="Save"
                     onClick={this.onSubmit} />
                 </div>
               </div>

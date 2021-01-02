@@ -1,8 +1,11 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
+var fileId = mongoose.Types.ObjectId();
 
 // Profile model
 const Profile = require('../../models/Profile')
+
 
 // @route GET api/profiles
 // @desc Get All profiles
@@ -12,6 +15,7 @@ router.get('/', (req, res) => {
   .sort({ profileName: -1})
     .then(profiles => res.json(profiles))
 });
+
 
 // @route ADD api/profiless
 // @desc Create a Profile
@@ -26,6 +30,7 @@ router.post('/', (req, res) => {
   newProfile.save()
   .then(profile => res.json(profile));
 });
+
 
 // @route DELETE api/profiles
 // @desc Delete a Profile

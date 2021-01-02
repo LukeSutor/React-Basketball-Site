@@ -29,10 +29,6 @@ const Navbar = () => {
               <NavLink exact to='/'
                 activeClassName="text-main border-b-2 border-main">Home</NavLink>
             </li>
-            <li className="font-medium px-4 py-2 rounded-full hover:bg-gray-100">
-              <NavLink to='/dashboard'
-                activeClassName="text-main border-b-2 border-main">Dashboard</NavLink>
-            </li>
           </ul>
           <div className="hidden md:flex justify-end w-0 flex-1 px-4">
             <button className="font-medium whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 rounded-full focus:outline-none"
@@ -51,12 +47,6 @@ const Navbar = () => {
               <NavLink to='/'
                 className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
                 onClick={() => setMenuOpen(!menuOpen)}>Home</NavLink>
-            </li>
-            <li className="flex flex-row hover:bg-gray-100 rounded-full">
-              <img src={dashboard} alt="" className="h-6 w-6 mx-4 my-auto" />
-              <NavLink to='/dashboard'
-                className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
-                onClick={() => setMenuOpen(!menuOpen)}>Dashboard</NavLink>
             </li>
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={sign_in} alt="" className="h-6 w-6 mx-4 my-auto" />
