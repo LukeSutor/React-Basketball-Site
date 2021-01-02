@@ -1,12 +1,12 @@
-import { GET_PROFILE, ADD_PROFILE, DELETE_PROFILE } from '../actions/types.js'
+import { GET_PROFILES, ADD_PROFILE, DELETE_PROFILE } from '../actions/types.js';
 
 const initialState = {
-  profile: []
+  profiles: []
 };
 
 function profileReducer(state = initialState, action) {
   switch(action.type) {
-    case GET_PROFILE:
+    case GET_PROFILES:
       return {
         ...state,
         profiles: action.payload
@@ -16,6 +16,8 @@ function profileReducer(state = initialState, action) {
         ...state,
         items: [action.payload, ...state.profiles]
       }
+    default:
+      return state;
   }
 }
 

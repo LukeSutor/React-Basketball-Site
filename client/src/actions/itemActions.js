@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, GET_PROFILE, ADD_PROFILE, DELETE_PROFILE } from './types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, GET_PROFILES, ADD_PROFILE, DELETE_PROFILE } from './types';
 
 
 // Post actions
@@ -40,11 +40,11 @@ export const setItemsLoading = () => {
 };
 
 // Profile actions
-export const getProfile = () => dispatch => {
+export const getProfiles = () => dispatch => {
   axios
-    .get('/api/profiles')
+    .get('/api/profiles', { params: { team: "Team Dynasty" }})
     .then(res => dispatch({
-      type: GET_PROFILE,
+      type: GET_PROFILES,
       payload: res.data
     }))
 };

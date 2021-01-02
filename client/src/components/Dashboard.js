@@ -13,11 +13,11 @@ class Dashboard extends Component {
   render() {
     console.log(this.props)
     const { items } = this.props.item;
-    return(
+    return (
       <div className="py-4">
         <ul className="flex flex-col items-center">
-          {items.map(( post ) => (
-            <Post key={post._id} post={ post } />
+          {items.map((post) => (
+            <Post key={post._id} post={post} />
           ))}
         </ul>
       </div>
@@ -34,5 +34,5 @@ const mapStateToProps = (state) => ({
   item: state.item
 })
 
-export default connect(mapStateToProps, 
+export default connect(mapStateToProps,
   { getItems })(Dashboard);

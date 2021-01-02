@@ -35,11 +35,11 @@ const Navbar = () => {
             </li>
           </ul>
           <div className="hidden md:flex justify-end w-0 flex-1 px-4">
-            <button className="font-medium whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 rounded-full"
+            <button className="font-medium whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 rounded-full focus:outline-none"
               onClick={() => loginWithRedirect()}>Sign In</button>
           </div>
           <div>
-            <button className="md:hidden w-9 h-9 align-middle mx-4" onClick={() => setMenuOpen(!menuOpen)}>
+            <button className="md:hidden w-9 h-9 align-middle mx-4 focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" alt="Hamburger Menu" />
             </button>
           </div>
@@ -60,7 +60,7 @@ const Navbar = () => {
             </li>
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={sign_in} alt="" className="h-6 w-6 mx-4 my-auto" />
-              <button className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
+              <button className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold focus:outline-none"
                 onClick={() => loginWithRedirect()}>Sign In</button>
             </li>
           </ul>
@@ -139,7 +139,7 @@ const Navbar = () => {
             </li>
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={register} alt="" className="h-6 w-6 mx-4 my-auto" />
-              <button className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
+              <button className="py-2 rounded-full hover:bg-gray-100 text-lg font-semibold focus:outline-none"
                 onClick={() => logout()}>Logout</button>
             </li>
           </ul>
@@ -149,7 +149,7 @@ const Navbar = () => {
           ${profileOpen ? "visible" : "hidden"}`}>
               <NavLink to='/profile' className=" font-medium px-4 pt-2">{user.name} Profile</NavLink>
               <br />
-              <button className="font-medium px-4 py-2"
+              <button className="font-medium px-4 py-2 focus:outline-none"
               onClick={() => logout()}>Logout</button>
           </div>
       </nav>

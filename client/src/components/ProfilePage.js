@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { addProfile, getProfile } from '../actions/itemActions';
+import { addProfile, getProfiles } from '../actions/itemActions';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { withAuth0 } from '@auth0/auth0-react';
 
-class Profile extends Component {
+class ProfilePage extends Component {
   getInitialState() {
     let email = this.props.auth0.user.email
     return{
@@ -29,7 +30,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.props.getProfile();
+    this.props.getProfiles();
   }
 
   onSubmit = e => {
@@ -56,7 +57,7 @@ class Profile extends Component {
         <div>
           <div className="bg-white w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4">
             <div className="w-2/3 py-4 mx-auto">
-              <p className="font-medium">Welcome, {this.props}</p>
+              <p className="font-medium">Welcome,</p>
             </div>
           </div>
           <div className="bg-white w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4">
@@ -84,8 +85,14 @@ class Profile extends Component {
   }
 };
 
-const mapStateToProps = state => ({
+ProfilePage.propTypes = {
+  getProfiles: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { addProfile, getProfile })(withAuth0(Profile));
+export default connect(mapStateToProps, 
+  { addProfile, getProfiles })(withAuth0(ProfilePage));

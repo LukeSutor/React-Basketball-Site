@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 // @route ADD api/profiless
 // @desc Create a Profile
 // @access Public
-router.post('/', (req,res) => {
+router.post('/', (req, res) => {
   const newProfile = new Profile({
     profileName: req.body.profileName,
     team: req.body.team,
