@@ -51,7 +51,7 @@ class Post extends Component {
               {this.props.post.blocks}</li>
           </div>
         </div>
-        <button 
+        <button className="focus:outline-none"
           onClick={this.onDeleteClick.bind(this, this.props.post._id)}
           >&times;</button>
       </div>

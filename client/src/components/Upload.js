@@ -1,32 +1,40 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { addItem } from '../actions/itemActions';
+import { addItem, getProfiles } from '../actions/itemActions';
 import PropTypes from 'prop-types';
 import { withAuth0 } from '@auth0/auth0-react';
 
 class Upload extends Component {
   getInitialState() {
     let email = this.props.auth0.user.email
-    return{
+    return {
       profileName: '',
       team: '',
       email: email
     }
   }
 
-  state = {
-    email: this.getInitialState.email,
-    name: '',
-    points: 0,
-    assists: 0,
-    rebounds: 0,
-    steals: 0,
-    blocks: 0,
-    redirect: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: this.getInitialState.email,
+      name: '',
+      points: 0,
+      assists: 0,
+      rebounds: 0,
+      steals: 0,
+      blocks: 0,
+      redirect: false
+    }
   }
 
+
   componentWillMount() {
-    this.setState({email: this.props.auth0.user.email})
+    this.setState({ email: this.props.auth0.user.email })
+  }
+
+  componentDidMount() {
+    this.props.getProfiles(this.state.email)
   }
 
   onChange = e => {
@@ -37,9 +45,13 @@ class Upload extends Component {
   onSubmit = e => {
     e.preventDefault();
 
+    // Extract the user's name from their profile
+    const profile = this.props.profile.profiles
+    const profileName = profile[0].profileName
+
     // Create a new post with the params added
     const newPost = {
-      name: this.state.name,
+      name: profileName,
       points: this.state.points,
       assists: this.state.assists,
       rebounds: this.state.rebounds,
@@ -48,7 +60,7 @@ class Upload extends Component {
     }
 
     // Add item to redux
-    this.props.addItem(newPost)
+    this.props.addItem(newPost, 'test')
 
     // Redirect user to dashboard
     this.props.history.push('/dashboard')
@@ -68,20 +80,17 @@ class Upload extends Component {
           <div className={`bg-white w-3/4 md:w-3/5 lg:w-1/2 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4 text-center
           ${profile.length === 0 ? "" : "hidden"}`}>
             <p className="font-medium py-2">Before you post your stats, your profile must be finalized.</p>
-            <p className="font-medium py-2">Please go <button 
-            className="font-medium text-main hover:text-dark focus:outline-none"
-            onClick={this.accountRedirect}>Here</button> to finish setting up your account.</p>
+            <p className="font-medium py-2">Please go <button
+              className="font-medium text-main hover:text-dark focus:outline-none"
+              onClick={this.accountRedirect}>Here</button> to finish setting up your account.</p>
           </div>
 
           {/* Form allowing user to enter their stats, hidden if the user hasn't finalized their account */}
           <div className={`bg-white w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4
-          ${profile.length === 0? "hidden" : ""}`}>
+          ${profile.length === 0 ? "hidden" : ""}`}>
             <form className="w-full md:w-3/4 mx-auto">
               <div className="py-4">
                 <h2 className="text-2xl font-semibold mx-5">Upload</h2>
-                <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                  <input className="px-4 w-full outline-none h-10" type="text" id="name" placeholder="Name" onChange={this.onChange} />
-                </div>
                 <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
                   <input className="px-4 w-full outline-none h-10" type="number" id="points" placeholder="Points" onChange={this.onChange} />
                 </div>
@@ -123,4 +132,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { addItem })(withAuth0(Upload));
+export default connect(mapStateToProps, { addItem, getProfiles })(withAuth0(Upload));
