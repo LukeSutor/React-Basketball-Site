@@ -24,6 +24,10 @@ router.post('/', (req, res) => {
   const newProfile = new Profile({
     profileName: req.body.profileName,
     team: req.body.team,
+    position: req.body.position,
+    jerseyNumber: req.body.jerseyNumber,
+    height: req.body.height,
+    weight: req.body.weight,
     email: req.body.email
   })
 

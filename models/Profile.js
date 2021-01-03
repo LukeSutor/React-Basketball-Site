@@ -8,10 +8,28 @@ const ProfileSchema = new Schema({
     required: true
   },
   team: {
-    type: String
+    type: String,
+    required: true
+  },
+  position: {
+    type: String,
+    required: true
+  },
+  jerseyNumber: {
+    type: Number,
+    required: true
+  },
+  height: {
+    type: String,
+    required: true
+  },
+  weight: {
+    type: Number,
+    required: true
   },
   email: {
-    type: String
+    type: String,
+    required: true
   }
 });
 

@@ -7,16 +7,20 @@ import { withAuth0 } from '@auth0/auth0-react';
 class ProfilePage extends Component {
   getInitialState() {
     let email = this.props.auth0.user.email
-    return{
+    return {
       profileName: '',
       team: '',
       email: email
     }
   }
-  
+
   state = {
     profileName: '',
     team: '',
+    position: '',
+    jerseyNumber: null,
+    height: '',
+    weight: null,
     email: this.getInitialState.email
   }
 
@@ -26,7 +30,7 @@ class ProfilePage extends Component {
   }
 
   componentWillMount() {
-    this.setState({email: this.props.auth0.user.email})
+    this.setState({ email: this.props.auth0.user.email })
   }
 
   componentDidMount() {
@@ -40,6 +44,10 @@ class ProfilePage extends Component {
     const newProfile = {
       profileName: this.state.profileName,
       team: this.state.team,
+      position: this.state.position,
+      jerseyNumber: this.state.jerseyNumber,
+      height: this.state.height,
+      weight: this.state.weight,
       email: this.state.email
     }
 
@@ -58,10 +66,14 @@ class ProfilePage extends Component {
       isAuthenticated && (
         <div>
           <div className="bg-white w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4">
-            {profile.map(({ profileName, team, email }) => (
+            {profile.map(({ profileName, team, position, jerseyNumber, height, weight, email }) => (
               <div key={email} className="w-2/3 py-4 mx-auto">
                 <p className="font-medium">Welcome, {profileName}</p>
                 <p className="font-medium">Team: {team}</p>
+                <p className="font-medium">Position: {position}</p>
+                <p className="font-medium">Jersey Number: {jerseyNumber}</p>
+                <p className="font-medium">Height: {height}</p>
+                <p className="font-medium">Weight: {weight}</p>
               </div>
             ))}
           </div>
@@ -75,10 +87,25 @@ class ProfilePage extends Component {
                 <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
                   <input className="px-4 w-full outline-none h-10" type="text" id="team" placeholder="Team" onChange={this.onChange} />
                 </div>
+                <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
+                  <input className="px-4 w-full outline-none h-10" type="text" id="position" placeholder="Position" onChange={this.onChange} />
+                </div>
+                <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
+                  <input className="px-4 w-full outline-none h-10" type="number" id="jerseyNumber" placeholder="Jersey Number" onChange={this.onChange} />
+                </div>
+                <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
+                  <input className="px-4 w-full outline-none h-10" type="text" id="height" placeholder="Height (ex. 6'5, 5'10, 4'2)" onChange={this.onChange} />
+                </div>
+                <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
+                  <input className="px-4 w-full outline-none h-10" type="number" id="weight" placeholder="Weight" onChange={this.onChange} />
+                </div>
+                <div className="mx-4 my-4">
+                  <p className="text-center text-red-600">Warning: Once you create your profile, the information cannot be changed.</p>
+                </div>
                 <div className="mx-4 my-4">
                   <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark"
                     type="button"
-                    value="Save"
+                    value="Submit"
                     onClick={this.onSubmit} />
                 </div>
               </div>
@@ -99,5 +126,5 @@ const mapStateToProps = (state) => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, 
+export default connect(mapStateToProps,
   { addProfile, getProfiles })(withAuth0(ProfilePage));

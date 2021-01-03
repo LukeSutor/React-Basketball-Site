@@ -135,10 +135,8 @@ const Navbar = () => {
           </ul>
         </div>
         {/* Dropdown menu for profile icon */}
-        <div className={`absolute right-0 z-10  -my-1 bg-white h-relative w-relative rounded-l-lg ring-1 ring-black ring-opacity-5 
+        <div className={`absolute right-0 z-10  -my-1 bg-white h-relative w-1/6 rounded-l-lg ring-1 ring-black ring-opacity-5 
           ${profileOpen ? "visible" : "hidden"}`}>
-              <NavLink to='/profile' className=" font-medium px-4 pt-2">{user.name} Profile</NavLink>
-              <br />
               <button className="font-medium px-4 py-2 focus:outline-none"
               onClick={() => logout()}>Logout</button>
           </div>
