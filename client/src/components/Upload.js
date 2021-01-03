@@ -5,32 +5,23 @@ import PropTypes from 'prop-types';
 import { withAuth0 } from '@auth0/auth0-react';
 
 class Upload extends Component {
-  getInitialState() {
-    let email = this.props.auth0.user.email
-    return {
-      profileName: '',
-      team: '',
-      email: email
-    }
-  }
-
   constructor(props) {
     super(props);
     this.state = {
-      email: this.getInitialState.email,
-      name: '',
+      email: '',
+      id: '',
       points: 0,
       assists: 0,
       rebounds: 0,
       steals: 0,
       blocks: 0,
-      redirect: false
     }
   }
 
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState({ email: this.props.auth0.user.email })
+    this.setState({ id: this.props.auth0.user.sub })
   }
 
   componentDidMount() {
@@ -47,11 +38,17 @@ class Upload extends Component {
 
     // Extract the user's name from their profile
     const profile = this.props.profile.profiles
-    const profileName = profile[0].profileName
+    const firstname = profile[0].firstname
+    const lastname = profile[0].lastname
+    const fullname = firstname + " " + lastname
+    // Extract the user's team from their profile
+    const team = profile[0].team
 
     // Create a new post with the params added
     const newPost = {
-      name: profileName,
+      id: this.state.id,
+      name: fullname,
+      team: team,
       points: this.state.points,
       assists: this.state.assists,
       rebounds: this.state.rebounds,
@@ -78,7 +75,7 @@ class Upload extends Component {
         <div>
           {/* Information box asking user to finish setting up their account, hidden if their account is set up */}
           <div className={`bg-white w-3/4 md:w-3/5 lg:w-1/2 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4 text-center
-          ${profile.length === 0 ? "" : "hidden"}`}>
+          ${profile.length === 0 ? "visible" : "hidden"}`}>
             <p className="font-medium py-2">Before you post your stats, your profile must be finalized.</p>
             <p className="font-medium py-2">Please go <button
               className="font-medium text-main hover:text-dark focus:outline-none"

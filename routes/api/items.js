@@ -16,7 +16,9 @@ router.get('/', (req, res) => {
 // @access Public
 router.post('/', (req, res) => {
   const newItem = new Item({
+    id: req.body.id,
     name: req.body.name,
+    team: req.body.team,
     points: req.body.points,
     assists: req.body.assists,
     rebounds: req.body.rebounds,

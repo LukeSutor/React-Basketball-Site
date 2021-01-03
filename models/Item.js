@@ -3,7 +3,15 @@ const Schema = mongoose.Schema;
 
 // Create post Schema
 const ItemSchema = new Schema({
+  id: {
+    type: String,
+    required: true
+  },
   name: {
+    type: String,
+    required: true
+  },
+  team: {
     type: String,
     required: true
   },

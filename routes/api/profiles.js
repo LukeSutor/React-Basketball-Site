@@ -22,11 +22,13 @@ router.get('/', (req, res) => {
 // @access Public
 router.post('/', (req, res) => {
   const newProfile = new Profile({
-    profileName: req.body.profileName,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     team: req.body.team,
     position: req.body.position,
     jerseyNumber: req.body.jerseyNumber,
-    height: req.body.height,
+    height_feet: req.body.height_feet,
+    height_inches: req.body.height_inches,
     weight: req.body.weight,
     email: req.body.email
   })

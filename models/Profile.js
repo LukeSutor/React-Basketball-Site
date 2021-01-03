@@ -3,7 +3,11 @@ const Schema = mongoose.Schema;
 
 // Create profile Schema
 const ProfileSchema = new Schema({
-  profileName: {
+  firstname: {
+    type: String,
+    required: true
+  },
+  lastname: {
     type: String,
     required: true
   },
@@ -19,8 +23,12 @@ const ProfileSchema = new Schema({
     type: Number,
     required: true
   },
-  height: {
-    type: String,
+  height_feet: {
+    type: Number,
+    required: true
+  },
+  height_inches: {
+    type: Number,
     required: true
   },
   weight: {

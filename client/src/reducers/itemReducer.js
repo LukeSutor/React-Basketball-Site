@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from '../actions/types.js';
+import { GET_ITEMS, GET_ITEMS_BY_ID, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from '../actions/types.js';
 
 const initialState = {
   items: [],
@@ -12,6 +12,11 @@ function itemReducer(state = initialState, action) {
         ...state,
         items: action.payload,
         loading: false
+      }
+    case GET_ITEMS_BY_ID:
+      return {
+        ...state,
+        items: action.payload.filter(item => item.id === action.id)
       }
     case DELETE_ITEM:
       return {
