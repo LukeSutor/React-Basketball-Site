@@ -28,6 +28,7 @@ class Dashboard extends Component {
   componentDidMount() {
     this.props.getItems();
     this.props.getProfiles(this.state.email);
+    console.log(this.props)
   }
 
   accountRedirect = () => {
@@ -50,7 +51,7 @@ class Dashboard extends Component {
                 onClick={this.accountRedirect}>Here</button> to finish setting up your account.</p>
             </div>
             {items.map((post) => (
-              <Post key={post._id} post={post} />
+              <Post key={post._id} post={post} deletable={false}/>
             ))}
           </ul>
         </div>

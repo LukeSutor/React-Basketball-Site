@@ -16,6 +16,7 @@ class Post extends Component {
           <li className="text-center text-sm md:text-lg font-semibold my-3 md:my-2 ml-16">{this.props.post.name}</li>
           <li className="text-center text-sm md:text-lg text-gray-600 font-normal my-3 md:my-2 mr-16">{this.props.post.team}</li>
         </div>
+        <p>{this.props.test}</p>
         <hr className="w-5/6 mx-auto"/>
         <div className="flex justify-evenly flex-wrap py-2">
           <div className="py-2 rounded-lg">
@@ -54,9 +55,11 @@ class Post extends Component {
               {this.props.post.blocks}</li>
           </div>
         </div>
-        <button className="focus:outline-none"
-          onClick={this.onDeleteClick.bind(this, this.props.post._id)}
-          >&times;</button>
+        <div className={`${this.props.deletable ? "visible" : "hidden"}`}>
+          <button className="bg-red-600 rounded-lg text-white p-1 mb-2 focus:outline-none"
+            onClick={this.onDeleteClick.bind(this, this.props.post._id)}
+            >Delete</button>
+        </div>
       </div>
     );
   }

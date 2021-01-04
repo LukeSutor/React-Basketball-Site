@@ -90,17 +90,17 @@ class ProfilePage extends Component {
                     <p className="text-center text-sm md:text-lg text-gray-600 py-1">Height</p>
                     <hr className="w-3/4 mx-auto py-1" />
                     <div className="flex justify-evenly">
-                      <p className="text-center text-main text-sm md:text-lg font-semibold inline-flex">{height_feet} 
+                      <div className="text-center text-main text-sm md:text-lg font-semibold inline-flex">{height_feet} 
                       <p className="text-xs md:text-sm text-gray-600 font-normal -bottom-0 mx-1 mt-1">ft</p> {height_inches} 
-                      <p className="text-xs md:text-sm text-gray-600 font-normal -bottom-0 ml-1 mt-1">in</p></p>
+                      <p className="text-xs md:text-sm text-gray-600 font-normal -bottom-0 ml-1 mt-1">in</p></div>
                     </div>
                   </div>
                   <div className="w-24">
                     <p className="text-center text-sm md:text-lg text-gray-600 py-1">Weight</p>
                     <hr className="w-3/4 mx-auto py-1" />
                     <div className="flex justify-evenly">
-                      <p className="text-center text-main text-sm md:text-lg font-semibold inline-flex">{weight} 
-                      <p className="text-xs md:text-sm text-gray-600 font-normal -bottom-0 ml-1 mt-1">lbs</p></p>
+                      <div className="text-center text-main text-sm md:text-lg font-semibold inline-flex">{weight} 
+                      <p className="text-xs md:text-sm text-gray-600 font-normal -bottom-0 ml-1 mt-1">lbs</p></div>
                     </div>
                   </div>
                 </div>
@@ -114,7 +114,7 @@ class ProfilePage extends Component {
           </div>
           <ul className="flex flex-col items-center">
           {items.map((post) => (
-            <Post key={post._id} post={post} />
+            <Post key={post._id} post={post} deletable={true}/>
           ))}
           </ul>
           {/* Form for users to enter their profile information, hidden once their information is in the api */}

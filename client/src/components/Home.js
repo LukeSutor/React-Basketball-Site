@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import basketball_court from './images/basketball_court.png'
 
 class Home extends Component {
-
   // Styling to make the background image it's reactive styling always taking up 50% of the screen
   container = {
       backgroundImage: `url(${basketball_court})`,
