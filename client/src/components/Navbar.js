@@ -9,7 +9,7 @@ import upload from './images/upload.png'
 import profile from './images/profile.png'
 import sign_in from './images/sign_in.png'
 import register from './images/register.png'
-import down_arrow from'./images/down_arrow.png';
+import down_arrow from './images/down_arrow.png';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,6 +30,10 @@ const Navbar = () => {
               <NavLink exact to='/'
                 activeClassName="text-main border-b-2 border-main">Home</NavLink>
             </li>
+            <li className="font-medium px-4 py-2 rounded-full hover:bg-gray-100">
+              <NavLink to='/dashboard'
+                activeClassName="text-main border-b-2 border-main">Dashboard</NavLink>
+            </li>
           </ul>
           <div className="hidden md:flex justify-end w-0 flex-1 px-4">
             <button className="font-medium whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 rounded-full focus:outline-none"
@@ -45,9 +49,15 @@ const Navbar = () => {
           <ul className="flex flex-col gap-3 justify-between px-2 py-4">
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={home} alt="" className="h-6 w-6 mx-4 my-auto" />
-              <NavLink to='/'
+              <NavLink exact to='/'
                 className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
                 onClick={() => setMenuOpen(!menuOpen)}>Home</NavLink>
+            </li>
+            <li className="flex flex-row hover:bg-gray-100 rounded-full">
+              <img src={dashboard} alt="" className="h-6 w-6 mx-4 my-auto" />
+              <NavLink to='/dashboard'
+                className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
+                onClick={() => setMenuOpen(!menuOpen)}>Dashboard</NavLink>
             </li>
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={sign_in} alt="" className="h-6 w-6 mx-4 my-auto" />
@@ -83,9 +93,9 @@ const Navbar = () => {
                 activeClassName="text-main border-b-2 border-main">Upload</NavLink>
             </li>
             <li className="font-medium px-4 py-2 rounded-full hover:bg-gray-100">
-                <NavLink to='/profile'
-                  onClick={() => setProfileOpen(false)}
-                  activeClassName="text-main border-b-2 border-main">Profile</NavLink>
+              <NavLink to='/profile'
+                onClick={() => setProfileOpen(false)}
+                activeClassName="text-main border-b-2 border-main">Profile</NavLink>
             </li>
           </ul>
           <div className="hidden md:flex justify-end lg:w-0 lg:flex-1">
@@ -136,11 +146,11 @@ const Navbar = () => {
           </ul>
         </div>
         {/* Dropdown menu for profile icon */}
-        <div className={`absolute right-0 z-10  -my-1 bg-white h-relative w-1/6 rounded-l-lg ring-1 ring-black ring-opacity-5 
+        <div className={`absolute right-4 z-10  -my-1 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
           ${profileOpen ? "visible" : "hidden"}`}>
-              <button className="font-medium px-4 py-2 focus:outline-none"
-              onClick={() => logout()}>Logout</button>
-          </div>
+          <button className="font-medium px-4 py-2 focus:outline-none"
+            onClick={() => logout()}>Logout</button>
+        </div>
       </nav>
     )
   );
