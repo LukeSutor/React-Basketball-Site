@@ -9,8 +9,7 @@ class Home extends Component {
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
       width: '100%',
-      height: '45vh',
-      opacity: '100%'
+      height: '45vh'
   }
 
   render() {

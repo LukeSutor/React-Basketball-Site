@@ -19,7 +19,7 @@ const ProfileSchema = new Schema({
     type: String,
     required: true
   },
-  jerseyNumber: {
+  jersey_number: {
     type: Number,
     required: true
   },

@@ -74,7 +74,7 @@ class Upload extends Component {
       isAuthenticated && (
         <div>
           {/* Information box asking user to finish setting up their account, hidden if their account is set up */}
-          <div className={`bg-white w-3/4 md:w-3/5 lg:w-1/2 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4 text-center
+          <div className={`bg-gray-50 w-3/4 md:w-3/5 lg:w-1/2 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4 text-center
           ${profile.length === 0 ? "visible" : "hidden"}`}>
             <p className="font-medium py-2">Before you post your stats, your profile must be finalized.</p>
             <p className="font-medium py-2">Please go <button
@@ -83,25 +83,25 @@ class Upload extends Component {
           </div>
 
           {/* Form allowing user to enter their stats, hidden if the user hasn't finalized their account */}
-          <div className={`bg-white w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4
+          <div className={`bg-gray-50 w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4
           ${profile.length === 0 ? "hidden" : ""}`}>
             <form className="w-full md:w-3/4 mx-auto">
               <div className="py-4">
                 <h2 className="text-2xl font-semibold mx-5">Upload</h2>
                 <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                  <input className="px-4 w-full outline-none h-10" type="number" id="points" placeholder="Points" onChange={this.onChange} />
+                  <input className="bg-gray-50 px-4 w-full outline-none h-10" type="number" id="points" placeholder="Points" onChange={this.onChange} />
                 </div>
                 <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                  <input className="px-4 w-full outline-none h-10" type="number" id="assists" placeholder="Assists" onChange={this.onChange} />
+                  <input className="bg-gray-50 px-4 w-full outline-none h-10" type="number" id="assists" placeholder="Assists" onChange={this.onChange} />
                 </div>
                 <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                  <input className="px-4 w-full outline-none h-10" type="number" id="rebounds" placeholder="Rebounds" onChange={this.onChange} />
+                  <input className="bg-gray-50 px-4 w-full outline-none h-10" type="number" id="rebounds" placeholder="Rebounds" onChange={this.onChange} />
                 </div>
                 <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                  <input className="px-4 w-full outline-none h-10" type="number" id="steals" placeholder="Steals" onChange={this.onChange} />
+                  <input className="bg-gray-50 px-4 w-full outline-none h-10" type="number" id="steals" placeholder="Steals" onChange={this.onChange} />
                 </div>
                 <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
-                  <input className="px-4 w-full outline-none h-10" type="number" id="blocks" placeholder="Blocks" onChange={this.onChange} />
+                  <input className="bg-gray-50 px-4 w-full outline-none h-10" type="number" id="blocks" placeholder="Blocks" onChange={this.onChange} />
                 </div>
                 <hr className="w-5/6 mx-auto" />
                 <div className="mx-4 my-4">

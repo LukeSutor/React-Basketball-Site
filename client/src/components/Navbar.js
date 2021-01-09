@@ -21,11 +21,11 @@ const Navbar = () => {
   // Return different navbar if user isn't authenticated
   if (!isAuthenticated) {
     return (
-      <nav>
-        <div className="flex justify-between items-center bg-white shadow border-gray-100 py-2 space-x-4">
+      <nav className="z-10">
+        <div className="flex justify-between items-center border-gray-100 py-2 md:space-x-4">
           <NavLink to='/' className="h-12 w-12 overflow-hidden rounded-full ml-8 -my-7">
             <img src={basketball_logo} className="rounded-full" alt="basketball logo" /></NavLink>
-          <ul className="hidden md:flex justify-start md:w-1 md:flex-1">
+          <ul className="hidden md:flex justify-end md:w-1 md:flex-1">
             <li className="font-medium px-4 py-2 rounded-full hover:bg-gray-100">
               <NavLink exact to='/'
                 activeClassName="text-main border-b-2 border-main">Home</NavLink>
@@ -34,34 +34,34 @@ const Navbar = () => {
               <NavLink to='/dashboard'
                 activeClassName="text-main border-b-2 border-main">Dashboard</NavLink>
             </li>
-          </ul>
-          <div className="hidden md:flex justify-end w-0 flex-1 px-4">
+          <li className="px-4">
             <button className="font-medium whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 rounded-full focus:outline-none"
               onClick={() => loginWithRedirect()}>Sign In</button>
-          </div>
+          </li>
+          </ul>
           <div>
             <button className="md:hidden w-9 h-9 align-middle mx-4 focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>
               <img src={hamburger_icon} alt="Hamburger Menu" />
             </button>
           </div>
         </div>
-        <div className={`absolute z-10 -my-1 bg-white h-relative w-full ${menuOpen ? "visible" : "hidden"}`}>
+        <div className={`absolute z-10 bg-white h-relative w-full ${menuOpen ? "visible" : "hidden"}`}>
           <ul className="flex flex-col gap-3 justify-between px-2 py-4">
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={home} alt="" className="h-6 w-6 mx-4 my-auto" />
               <NavLink exact to='/'
-                className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
+                className="py-2 rounded-full hover:bg-gray-100 text-lg"
                 onClick={() => setMenuOpen(!menuOpen)}>Home</NavLink>
             </li>
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={dashboard} alt="" className="h-6 w-6 mx-4 my-auto" />
               <NavLink to='/dashboard'
-                className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
+                className="py-2 rounded-full hover:bg-gray-100 text-lg"
                 onClick={() => setMenuOpen(!menuOpen)}>Dashboard</NavLink>
             </li>
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={sign_in} alt="" className="h-6 w-6 mx-4 my-auto" />
-              <button className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold focus:outline-none"
+              <button className="py-2 rounded-full hover:bg-gray-100 text-lg focus:outline-none"
                 onClick={() => loginWithRedirect()}>Sign In</button>
             </li>
           </ul>
@@ -73,10 +73,10 @@ const Navbar = () => {
   return (
     isAuthenticated && (
       <nav>
-        <div className="flex justify-between bg-white items-center shadow border-gray-100 py-2 md:space-x-4">
+        <div className="flex justify-between items-center border-gray-100 py-2 md:space-x-4">
           <NavLink to='/' className="h-12 w-12 overflow-hidden rounded-full ml-8 -my-7">
             <img src={basketball_logo} className="rounded-full" alt="basketball logo" /></NavLink>
-          <ul className="hidden md:flex justify-start md:w-1 md:flex-1">
+          <ul className="hidden md:flex justify-end md:w-1 md:flex-1">
             <li className="font-medium px-4 py-2 rounded-full hover:bg-gray-100">
               <NavLink exact to='/'
                 onClick={() => setProfileOpen(false)}
@@ -97,12 +97,12 @@ const Navbar = () => {
                 onClick={() => setProfileOpen(false)}
                 activeClassName="text-main border-b-2 border-main">Profile</NavLink>
             </li>
+            <li>
+              <button className="flex flex-row font-medium px-4 py-2 rounded-full hover:bg-gray-100 focus:outline-none"
+                onClick={() => setProfileOpen(!profileOpen)}>{user.name}
+                <img src={down_arrow} alt="" className="h-6 w-6" /></button>
+            </li>
           </ul>
-          <div className="hidden md:flex justify-end lg:w-0 lg:flex-1">
-            <button className="flex flex-row font-medium px-4 py-2 rounded-full hover:bg-gray-100 focus:outline-none"
-              onClick={() => setProfileOpen(!profileOpen)}>{user.name}
-              <img src={down_arrow} alt="" className="h-6 w-6" /></button>
-          </div>
 
           {/* Hamburger Menu */}
 
@@ -112,35 +112,35 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-        <div className={`absolute z-10 -my-1 bg-white h-relative w-full ${menuOpen ? "visible" : "hidden"}`}>
-          <ul className="flex flex-col gap-3 justify-between px-2 py-4">
+        <div className={`absolute z-10 bg-white h-relative w-full ${menuOpen ? "visible" : "hidden"}`}>
+          <ul className="flex flex-col gap-2 justify-between px-2 py-4">
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={home} alt="" className="h-6 w-6 mx-4 my-auto" />
               <NavLink to='/'
-                className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
+                className="py-2 rounded-full hover:bg-gray-100 text-lg"
                 onClick={() => setMenuOpen(!menuOpen)}>Home</NavLink>
             </li>
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={dashboard} alt="" className="h-6 w-6 mx-4 my-auto" />
               <NavLink to='/dashboard'
-                className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
+                className="py-2 rounded-full hover:bg-gray-100 text-lg"
                 onClick={() => setMenuOpen(!menuOpen)}>Dashboard</NavLink>
             </li>
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={upload} alt="" className="h-6 w-6 mx-4 my-auto" />
               <NavLink to='/upload'
-                className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
+                className="py-2 rounded-full hover:bg-gray-100 text-lg"
                 onClick={() => setMenuOpen(!menuOpen)}>Upload</NavLink>
             </li>
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={profile} alt="" className="h-6 w-6 mx-4 my-auto" />
               <NavLink to='/profile'
-                className="py-2 rounded-full hover:bg-gray-100 text-lg{`font-semibold"
+                className="py-2 rounded-full hover:bg-gray-100 text-lg"
                 onClick={() => setMenuOpen(!menuOpen)}>Profile</NavLink>
             </li>
             <li className="flex flex-row hover:bg-gray-100 rounded-full">
               <img src={register} alt="" className="h-6 w-6 mx-4 my-auto" />
-              <button className="py-2 rounded-full hover:bg-gray-100 text-lg font-semibold focus:outline-none"
+              <button className="py-2 rounded-full hover:bg-gray-100 text-lg focus:outline-none"
                 onClick={() => logout()}>Logout</button>
             </li>
           </ul>

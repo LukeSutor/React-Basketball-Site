@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
     lastname: req.body.lastname,
     team: req.body.team,
     position: req.body.position,
-    jerseyNumber: req.body.jerseyNumber,
+    jersey_number: req.body.jersey_number,
     height_feet: req.body.height_feet,
     height_inches: req.body.height_inches,
     weight: req.body.weight,

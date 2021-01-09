@@ -35,7 +35,7 @@ class Dashboard extends Component {
     return (
         <div className="py-4">
           <ul className="flex flex-col items-center">
-            <div className={`bg-white w-3/4 md:w-3/5 lg:w-1/2 text-center my-4 rounded-lg shadow-md overflow-hidden
+            <div className={`bg-gray-50 w-3/4 md:w-3/5 lg:w-1/2 text-center my-4 rounded-lg shadow-md overflow-hidden
             ${profile.length === 0 && isAuthenticated ? "visible" : "hidden"}`}>
               <p className="font-medium py-2">We are missing account information such as your name and team.</p>
               <p className="font-medium py-2">Please go <button

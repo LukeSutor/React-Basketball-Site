@@ -5,7 +5,6 @@ import Post from './Post';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withAuth0 } from '@auth0/auth0-react';
-import jersey from './images/jersey.jpg';
 
 class ProfilePage extends Component {
   state = {
@@ -13,7 +12,7 @@ class ProfilePage extends Component {
     lastname: '',
     team: '',
     position: '',
-    jerseyNumber: null,
+    jersey_number: null,
     height_feet: '',
     height_inches: '',
     weight: null,
@@ -45,7 +44,7 @@ class ProfilePage extends Component {
       lastname: this.state.lastname,
       team: this.state.team,
       position: this.state.position,
-      jerseyNumber: this.state.jerseyNumber,
+      jersey_number: this.state.jersey_number,
       height_feet: this.state.height_feet,
       height_inches: this.state.height_inches,
       weight: this.state.weight,
@@ -62,12 +61,31 @@ class ProfilePage extends Component {
     const { isAuthenticated } = this.props.auth0;
     const profile = this.props.profile.profiles;
     const { items } = this.props.item;
+    let posts = 0;
+    let ppg = 0;
+    let apg = 0;
+    let rpg = 0;
+    let spg = 0;
+    let bpg = 0;
+    for(let i = 0; i < items.length; i++) {
+      ppg += items[i].points;
+      apg += items[i].assists;
+      rpg += items[i].rebounds;
+      spg += items[i].steals;
+      bpg += items[i].blocks;
+      posts++
+    }
+    ppg = Math.round((ppg / posts) * 100) / 100
+    apg = Math.round((apg / posts) * 100) / 100
+    rpg = Math.round((rpg / posts) * 100) / 100
+    spg = Math.round((spg / posts) * 100) / 100
+    bpg = Math.round((bpg / posts) * 100) / 100
     return (
       isAuthenticated && (
         <div>
           {/* User's profile page */}
           {profile.map((profile) => (
-            <ProfileScreen key={profile.email} profile={profile} />
+            <ProfileScreen key={profile.email} profile={profile} ppg={ppg} apg={apg} rpg={rpg} spg={spg} bpg={bpg}/>
           ))}
           
           {/* Place where all the current user's posts are listed as well as the option to delete them */}
@@ -80,7 +98,7 @@ class ProfilePage extends Component {
             ))}
           </ul>
           {/* Form for users to enter their profile information, hidden once their information is in the api */}
-          <div className={`bg-white w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4
+          <div className={`bg-gray-50 w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4
           ${profile.length === 0 ? "visible" : "hidden"}`}>
             <form className="w-full md:w-3/4 mx-auto">
               <div className="py-4">
@@ -100,7 +118,7 @@ class ProfilePage extends Component {
                   <input className="px-4 w-full outline-none h-10" type="text" id="position" placeholder="Position (ex. Power Forward, PF)" onChange={this.onChange} />
                 </div>
                 <div className="mx-4 my-4 rounded-full shadow-md overflow-hidden">
-                  <input className="px-4 w-full outline-none h-10" type="number" id="jerseyNumber" placeholder="Jersey Number" onChange={this.onChange} />
+                  <input className="px-4 w-full outline-none h-10" type="number" id="jersey_number" placeholder="Jersey Number" onChange={this.onChange} />
                 </div>
                 <div className="my-4 flex justify-between">
                   <div className="mx-4 w-1/2 rounded-full shadow-md overflow-hidden">
