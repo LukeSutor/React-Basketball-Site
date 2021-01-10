@@ -40,6 +40,7 @@ class ProfilePage extends Component {
 
     // Create new profile with the input given
     const newProfile = {
+      user_id: this.state.id,
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       team: this.state.team,
@@ -87,7 +88,7 @@ class ProfilePage extends Component {
           {profile.map((profile) => (
             <ProfileScreen key={profile.email} profile={profile} ppg={ppg} apg={apg} rpg={rpg} spg={spg} bpg={bpg}/>
           ))}
-          
+
           {/* Place where all the current user's posts are listed as well as the option to delete them */}
           <div className="w-5/6 md:w-3/4 h-auto mx-auto mt-8 mb-4">
             <p className="text-5xl">Posts</p>
@@ -105,37 +106,37 @@ class ProfilePage extends Component {
                 <h2 className="text-2xl font-semibold mx-5">Create Profile</h2>
                 <div className="my-4 flex justify-between">
                   <div className="mx-4 w-1/2 rounded-full shadow-md overflow-hidden">
-                    <input className="px-4 w-full outline-none h-10" type="text" id="firstname" placeholder="First Name" onChange={this.onChange} />
+                    <input className="bg-gray-50 px-4 w-full outline-none h-10" type="text" id="firstname" placeholder="First Name" onChange={this.onChange} />
                   </div>
                   <div className="mx-4 w-1/2 rounded-full shadow-md overflow-hidden">
-                    <input className="px-4 w-full outline-none h-10" type="text" id="lastname" placeholder="Last Name" onChange={this.onChange} />
+                    <input className="bg-gray-50 px-4 w-full outline-none h-10" type="text" id="lastname" placeholder="Last Name" onChange={this.onChange} />
                   </div>
                 </div>
                 <div className="mx-4 my-4 rounded-full shadow-md overflow-hidden">
-                  <input className="px-4 w-full outline-none h-10" type="text" id="team" placeholder="Team" onChange={this.onChange} />
+                  <input className="bg-gray-50 px-4 w-full outline-none h-10" type="text" id="team" placeholder="Team" onChange={this.onChange} />
                 </div>
                 <div className="mx-4 my-4 rounded-full shadow-md overflow-hidden">
-                  <input className="px-4 w-full outline-none h-10" type="text" id="position" placeholder="Position (ex. Power Forward, PF)" onChange={this.onChange} />
+                  <input className="bg-gray-50 px-4 w-full outline-none h-10" type="text" id="position" placeholder="Position (ex. Power Forward, PF)" onChange={this.onChange} />
                 </div>
                 <div className="mx-4 my-4 rounded-full shadow-md overflow-hidden">
-                  <input className="px-4 w-full outline-none h-10" type="number" id="jersey_number" placeholder="Jersey Number" onChange={this.onChange} />
+                  <input className="bg-gray-50 px-4 w-full outline-none h-10" type="number" id="jersey_number" placeholder="Jersey Number" onChange={this.onChange} />
                 </div>
                 <div className="my-4 flex justify-between">
                   <div className="mx-4 w-1/2 rounded-full shadow-md overflow-hidden">
-                    <input className="px-4 w-full outline-none h-10" type="number" id="height_feet" placeholder="Height (feet)" onChange={this.onChange} />
+                    <input className="bg-gray-50 px-4 w-full outline-none h-10" type="number" id="height_feet" placeholder="Height (feet)" onChange={this.onChange} />
                   </div>
                   <div className="mx-4 w-1/2 rounded-full shadow-md overflow-hidden">
-                    <input className="px-4 w-full outline-none h-10" type="number" id="height_inches" placeholder="Height (inches)" onChange={this.onChange} />
+                    <input className="bg-gray-50 px-4 w-full outline-none h-10" type="number" id="height_inches" placeholder="Height (inches)" onChange={this.onChange} />
                   </div>
                 </div>
                 <div className="mx-4 my-4 rounded-full shadow-md overflow-hidden">
-                  <input className="px-4 w-full outline-none h-10" type="number" id="weight" placeholder="Weight" onChange={this.onChange} />
+                  <input className="bg-gray-50 px-4 w-full outline-none h-10" type="number" id="weight" placeholder="Weight" onChange={this.onChange} />
                 </div>
                 <div className="mx-4 my-4">
                   <p className="text-center text-red-600">Warning: Once you create your profile, the information cannot be changed.</p>
                 </div>
                 <div className="mx-4 my-4">
-                  <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark"
+                  <input className="bg-gray-50 px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark"
                     type="button"
                     value="Submit"
                     onClick={this.onSubmit} />

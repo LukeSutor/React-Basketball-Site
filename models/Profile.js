@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 // Create profile Schema
 const ProfileSchema = new Schema({
+  user_id: {
+    type: String,
+    required: true
+  },
   firstname: {
     type: String,
     required: true

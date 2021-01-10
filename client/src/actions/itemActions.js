@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ITEMS, GET_ITEMS_BY_ID, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, GET_PROFILES, ADD_PROFILE, DELETE_PROFILE } from './types';
+import { GET_ITEMS, GET_ITEMS_BY_ID, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, GET_PROFILES, GET_PROFILE_BY_ID, ADD_PROFILE, DELETE_PROFILE } from './types';
 
 
 // Post actions
@@ -58,6 +58,16 @@ export const getProfiles = (email) => dispatch => {
       type: GET_PROFILES,
       payload: res.data,
       email: email
+    }))
+};
+
+export const getProfileById = (id) => dispatch => {
+  axios
+    .get('/api/profiles')
+    .then(res => dispatch({
+      type: GET_PROFILE_BY_ID,
+      payload: res.data,
+      user_id: id
     }))
 };
 

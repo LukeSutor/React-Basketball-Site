@@ -8,7 +8,7 @@ class ProfileScreen extends Component {
           <div className="flex justify-between h-96 overflow-hidden">
             <div className="relative w-96">
               <div style={{ fontSize: '400px' }} className="hidden md:flex text-main -mt-36 opacity-40 text-center">
-                {this.props.profile.jersey_number}</div>
+              {this.props.profile.jersey_number}</div>
               <div className="absolute text-black text-4xl md:text-8xl text-center font-semibold w-full top-1/3 md:top-1/4 -mt-3">{this.props.profile.firstname}
                 <br />{this.props.profile.lastname}
                 <p className="md:hidden text-main font-normal">{this.props.profile.jersey_number}</p></div>

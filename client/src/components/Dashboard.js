@@ -18,7 +18,6 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.props.getItems();
-    console.log(this.props)
     if (this.props.auth0.isAuthenticated) {
       this.props.getProfiles(this.state.email);
     }

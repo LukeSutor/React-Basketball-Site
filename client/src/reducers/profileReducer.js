@@ -1,4 +1,4 @@
-import { GET_PROFILES, ADD_PROFILE } from '../actions/types.js';
+import { GET_PROFILES, ADD_PROFILE, GET_PROFILE_BY_ID } from '../actions/types.js';
 
 const initialState = {
   profiles: []
@@ -10,6 +10,11 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         profiles: action.payload.filter(profile => profile.email === action.email)
+      }
+    case GET_PROFILE_BY_ID:
+      return {
+        ...state,
+        profiles: action.payload.filter(profile => profile.user_id === action.user_id)
       }
     case ADD_PROFILE:
       return {

@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import Upload from './components/Upload';
 import ProfilePage from './components/ProfilePage';
+import User from './components/User';
 import './App.css';
 
 import { Provider } from 'react-redux';
@@ -20,6 +21,7 @@ function App() {
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/upload' component={Upload} />
           <Route path='/profile' component={ProfilePage} />
+          <Route path='/user/:name' component={User} />
         </BrowserRouter>
       </div>
     </Provider>
