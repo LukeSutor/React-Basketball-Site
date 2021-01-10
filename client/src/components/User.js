@@ -12,12 +12,11 @@ class User extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     this.setState({ name: this.props.match.params.name })
     this.setState({ user_id: this.props.location.user_id })
     this.props.getProfileById(this.props.location.user_id)
     this.props.getItemsById(this.props.location.post_id)
-    console.log(this.props)
+    window.scrollTo(0, 0)
   }
 
   render() {
@@ -43,6 +42,7 @@ class User extends Component {
     spg = Math.round((spg / posts) * 100) / 100
     bpg = Math.round((bpg / posts) * 100) / 100
     return (
+      profile[0].user_id === this.state.user_id && (
       <div>
         {profile.map((profile) => (
           <ProfileScreen key={profile.email} profile={profile} ppg={ppg} apg={apg} rpg={rpg} spg={spg} bpg={bpg} />
@@ -56,6 +56,7 @@ class User extends Component {
             ))}
           </ul>
       </div>
+      )
     );
   }
 }

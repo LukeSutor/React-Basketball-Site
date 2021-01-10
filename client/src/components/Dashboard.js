@@ -32,20 +32,20 @@ class Dashboard extends Component {
     const { items } = this.props.item;
     const profile = this.props.profile.profiles;
     return (
-        <div className="py-4">
-          <ul className="flex flex-col items-center">
-            <div className={`bg-gray-50 w-3/4 md:w-3/5 lg:w-1/2 text-center my-4 rounded-lg shadow-md overflow-hidden
+      <div className="py-4">
+        <ul className="flex flex-col items-center">
+          <div className={`bg-gray-50 w-3/4 md:w-3/5 lg:w-1/2 text-center my-4 rounded-lg shadow-md overflow-hidden
             ${profile.length === 0 && isAuthenticated ? "visible" : "hidden"}`}>
-              <p className="font-medium py-2">We are missing account information such as your name and team.</p>
-              <p className="font-medium py-2">Please go <button
-                className="font-medium text-main hover:text-dark focus:outline-none"
-                onClick={this.accountRedirect}>Here</button> to finish setting up your account.</p>
-            </div>
-            {items.map((post) => (
-              <Post key={post._id} post={post} deletable={false} />
-            ))}
-          </ul>
-        </div>
+            <p className="font-medium py-2">We are missing account information such as your name and team.</p>
+            <p className="font-medium py-2">Please go <button
+              className="font-medium text-main hover:text-dark focus:outline-none"
+              onClick={this.accountRedirect}>Here</button> to finish setting up your account.</p>
+          </div>
+          {items.map((post) => (
+            <Post key={post._id} post={post} deletable={false} />
+          ))}
+        </ul>
+      </div>
     );
   }
 }

@@ -21,7 +21,7 @@ const Navbar = () => {
   // Return different navbar if user isn't authenticated
   if (!isAuthenticated) {
     return (
-      <nav className="z-10">
+      <nav className="bg-transparent">
         <div className="flex justify-between items-center border-gray-100 py-2 md:space-x-4">
           <NavLink to='/' className="h-12 w-12 overflow-hidden rounded-full ml-8 -my-7">
             <img src={basketball_logo} className="rounded-full" alt="basketball logo" /></NavLink>
@@ -34,10 +34,10 @@ const Navbar = () => {
               <NavLink to='/dashboard'
                 activeClassName="text-main border-b-2 border-main">Dashboard</NavLink>
             </li>
-          <li className="px-4">
-            <button className="font-medium whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 rounded-full focus:outline-none"
-              onClick={() => loginWithRedirect()}>Sign In</button>
-          </li>
+            <li className="px-4">
+              <button className="font-medium whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 rounded-full focus:outline-none"
+                onClick={() => loginWithRedirect()}>Sign In</button>
+            </li>
           </ul>
           <div>
             <button className="md:hidden w-9 h-9 align-middle mx-4 focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>

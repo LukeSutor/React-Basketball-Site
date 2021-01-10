@@ -1,32 +1,32 @@
 import React, { Component } from 'react'
-import basketball_court from './images/basketball_court.png'
+import basketball_background from './images/basketball_background.png';
+import { withAuth0 } from '@auth0/auth0-react';
 
 class Home extends Component {
-  // Styling to make the background image it's reactive styling always taking up 50% of the screen
-  container = {
-      backgroundImage: `url(${basketball_court})`,
-      backgroundPosition: 'center',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      width: '100%',
-      height: '45vh'
-  }
-
   render() {
-    return(
+    const { isAuthenticated, loginWithRedirect } = this.props.auth0;
+    return (
       <div>
-        <div style={this.container}>
-          <div className="relative top-1/3 mx-10 md:mx-16 lg:mx-24 w-min whitespace-nowrap bg-main rounded-lg">
-            <p className="text-white text-l md:text-3xl lg:text-4xl font-bold p-4 content-center">The Stat Sheet</p>
+        <div className="bg-main w-full md:h-3/4 mt-8 text-white">
+          <div className="flex justify-evenly py-8">
+            <div className="flex flex-col justify-evenly w-min h-min">
+              <p className="text-4xl md:text-6xl lg:text-7xl font-semibold md:-mt-4 lg:-mt-8 whitespace-nowrap">The Stat <br /> Sheet</p>
+              <p className="text-md md:text-2xl whitespace-nowrap">Record your stats, track your progress,<br /> share with your coaches and peers.</p>
+              <div className="bg-white text-center w-min mx-auto rounded-full whitespace-nowrap hover:bg-gray-100">
+                <button className={`text-main text-md md:text-lg font-semibold px-2 md:px-4 py-1 md:py-2 focus:outline-none
+                ${isAuthenticated ? "hidden" : ""}`}
+                onClick={() => loginWithRedirect()}>Get Started</button>
+              </div>
+            </div>
+            <div className="w-1/2">
+              <img src={basketball_background} alt="basketball vector" />
+            </div>
           </div>
         </div>
-        <div className="py-4 mx-auto">
-          <p className="text-center text-main">Test</p>
-        </div>
       </div>
-    
+
     );
   }
 }
 
-export default Home;
+export default withAuth0(Home);
