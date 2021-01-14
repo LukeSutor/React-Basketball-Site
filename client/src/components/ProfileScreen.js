@@ -13,7 +13,7 @@ class ProfileScreen extends Component {
                 <br />{this.props.profile.lastname}
                 <p className="md:hidden text-main font-semibold">{this.props.profile.jersey_number}</p></div>
             </div>
-            <div className="flex flex-row md:flex-col lg:flex-row gap-16 md:gap-0 lg:gap-16 mx-auto -mt-10 md:-mt-0">
+            <div className="flex flex-row md:flex-col lg:flex-row gap-16 md:gap-0 lg:gap-32 mx-auto -mt-10 md:-mt-0">
               <div className="my-auto">
                 <div className="text-3xl md:text-4xl lg:text-5xl text-main font-semibold inline-flex">{this.props.profile.height_feet}
                   <p className="text-black text-lg md:text-2xl lg:text-2xl mt-1 lg:mt-3 px-3">ft</p>
