@@ -136,7 +136,7 @@ class ProfilePage extends Component {
                   <p className="text-center text-red-600">Warning: Once you create your profile, the information cannot be changed.</p>
                 </div>
                 <div className="mx-4 my-4">
-                  <input className="bg-gray-50 px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark"
+                  <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark"
                     type="button"
                     value="Submit"
                     onClick={this.onSubmit} />

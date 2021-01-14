@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "Basketball stat/video website",
   "main": "server.js",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Luke Sutor",
   "license": "MIT",
@@ -16,6 +20,7 @@
     "body-parser": "^1.19.0",
     "concurrently": "^5.3.0",
     "express": "^4.17.1",
+    "heroku": "^7.47.7",
     "mongoose": "^5.11.5"
   },
   "devDependencies": {
