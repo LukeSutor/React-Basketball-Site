@@ -26,8 +26,10 @@ class ProfilePage extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    this.setState({ email: this.props.auth0.user.email })
-    this.setState({ id: this.props.auth0.user.sub })
+    if (this.props.auth0.isAuthenticated) {
+      this.setState({ email: this.props.auth0.user.email })
+      this.setState({ id: this.props.auth0.user.sub })
+    }
   }
 
   componentDidMount() {
@@ -68,7 +70,7 @@ class ProfilePage extends Component {
     let rpg = 0;
     let spg = 0;
     let bpg = 0;
-    for(let i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
       ppg += items[i].points;
       apg += items[i].assists;
       rpg += items[i].rebounds;
@@ -86,12 +88,13 @@ class ProfilePage extends Component {
         <div>
           {/* User's profile page */}
           {profile.map((profile) => (
-            <ProfileScreen key={profile.email} profile={profile} ppg={ppg} apg={apg} rpg={rpg} spg={spg} bpg={bpg}/>
+            <ProfileScreen key={profile.email} profile={profile} ppg={ppg} apg={apg} rpg={rpg} spg={spg} bpg={bpg} />
           ))}
 
           {/* Place where all the current user's posts are listed as well as the option to delete them */}
           <div className="w-5/6 md:w-3/4 h-auto mx-auto mt-8 mb-4">
-            <p className="text-5xl">Posts</p>
+            <p className={`text-5xl
+            ${items.length === 0 ? "hidden" : ""}`}>Posts</p>
           </div>
           <ul className="flex flex-col items-center">
             {items.map((post) => (
