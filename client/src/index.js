@@ -10,7 +10,7 @@ ReactDOM.render(
   domain="dev-hcy8y0so.us.auth0.com"
   clientId="CBBTcAiRUoGsp5D2Yb8eF8tntjKR3NCL"
   // Use http://localhost:3000/ when testing code, use https://the-stat-sheet.herokuapp.com/ for production
-  redirectUri="https://the-stat-sheet.herokuapp.com/">
+  redirectUri="http://localhost:3000/">
     <App />
   </Auth0Provider>,
   document.getElementById('root')

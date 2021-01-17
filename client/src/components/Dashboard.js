@@ -7,6 +7,9 @@ import { withAuth0 } from '@auth0/auth0-react';
 
 class Dashboard extends Component {
   state = {
+    // email is set to default "lukesutor@gmail.com"
+    // this ensures a profile is always retrieved and added to props when dashboard page is loaded, even if user isn't signed in.
+    // this fixs bug where users cannot see profiles from other users posts when not logged in.
     email: 'lukesutor@gmail.com'
   }
 
