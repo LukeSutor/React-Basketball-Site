@@ -42,19 +42,21 @@ class User extends Component {
     spg = Math.round((spg / posts) * 100) / 100
     bpg = Math.round((bpg / posts) * 100) / 100
     return (
-      <div>
-        {profile.map((profile) => (
-          <ProfileScreen key={profile.email} profile={profile} ppg={ppg} apg={apg} rpg={rpg} spg={spg} bpg={bpg} />
-        ))}
-        <div className="w-5/6 md:w-3/4 h-auto mx-auto mt-8 mb-4">
-          <p className="text-5xl">{this.state.name}'s Posts</p>
-        </div>
-        <ul className="flex flex-col items-center">
-          {items.map((post) => (
-            <Post key={post._id + post.date} post={post} deletable={false} />
+      profile[0].user_id === this.state.user_id && (
+        <div>
+          {profile.map((profile) => (
+            <ProfileScreen key={profile.email} profile={profile} ppg={ppg} apg={apg} rpg={rpg} spg={spg} bpg={bpg} />
           ))}
-        </ul>
-      </div>
+          <div className="w-5/6 md:w-3/4 h-auto mx-auto mt-8 mb-4">
+            <p className="text-5xl">{this.state.name}'s Posts</p>
+          </div>
+          <ul className="flex flex-col items-center">
+            {items.map((post) => (
+              <Post key={post._id + post.date} post={post} deletable={false} />
+            ))}
+          </ul>
+        </div>
+      )
     );
   }
 }

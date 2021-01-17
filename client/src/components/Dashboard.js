@@ -7,7 +7,7 @@ import { withAuth0 } from '@auth0/auth0-react';
 
 class Dashboard extends Component {
   state = {
-    email: ''
+    email: 'lukesutor@gmail.com'
   }
 
   UNSAFE_componentWillMount() {
@@ -18,9 +18,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.props.getItems();
-    if (this.props.auth0.isAuthenticated) {
-      this.props.getProfiles(this.state.email);
-    }
+    this.props.getProfiles(this.state.email);
   }
 
   accountRedirect = () => {
