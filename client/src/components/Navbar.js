@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import basketball_logo from './images/basketball_logo.png'
-import hamburger_icon from './images/hamburger_icon.png';
+import hamburger_icon from './images/hamburger_icon.png'
 import home from './images/home.png'
 import dashboard from './images/dashboard.png'
 import upload from './images/upload.png'
@@ -11,7 +11,7 @@ import sign_in from './images/sign_in.png'
 import log_out from './images/logout.png'
 import down_arrow from './images/down_arrow.png'
 
-const Navbar = () => {
+const Navbar = (props) => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -113,8 +113,14 @@ const Navbar = () => {
       {/* Dropdown menu for profile icon */}
       <div className={`absolute right-4 z-10  -my-1 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
           ${profileOpen ? "visible" : "hidden"}`}>
-        <button className="font-medium px-4 py-2 focus:outline-none"
-          onClick={() => logout()}>Logout</button>
+        <div className="flex flex-col text-left">
+          <NavLink to='/update-profile'
+            className={`font-medium px-4 py-2 focus:outline-none
+            ${props.location.pathname.includes("/user", 0) ? "hidden" : ""}`}
+            onClick={() => setProfileOpen(!profileOpen)}>Edit Profile</NavLink>
+          <button className="font-medium px-4 py-1 focus:outline-none text-left"
+            onClick={() => logout()}>Logout</button>
+        </div>
       </div>
     </nav>
   );
