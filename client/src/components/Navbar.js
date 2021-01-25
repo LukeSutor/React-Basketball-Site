@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import basketball_logo from './images/basketball_logo.png'
+import basketball_logo from './images/logo2.png'
 import hamburger_icon from './images/hamburger_icon.png'
 import home from './images/home.png'
 import dashboard from './images/dashboard.png'
 import upload from './images/upload.png'
 import profile from './images/profile.png'
+import edit_profile from './images/edit_profiile.png'
 import sign_in from './images/sign_in.png'
 import log_out from './images/logout.png'
 import down_arrow from './images/down_arrow.png'
@@ -22,42 +23,34 @@ const Navbar = (props) => {
   return (
     <nav>
       <div className="flex justify-between items-center border-gray-100 py-2 md:space-x-4">
-        <NavLink to='/' className="h-12 w-12 overflow-hidden rounded-full ml-8 -my-7">
+        <NavLink to='/' className="h-12 w-64 ml-8 mt-2">
           <img src={basketball_logo} className="rounded-full" alt="basketball logo" /></NavLink>
-        <ul className="hidden md:flex justify-end md:w-1 md:flex-1">
-          <li className="font-medium px-4 py-2 rounded-full hover:bg-gray-100">
-            <NavLink exact to='/'
-              onClick={() => setProfileOpen(false)}
-              activeClassName="text-main border-b-2 border-main">Home</NavLink>
-          </li>
-          <li className="font-medium px-4 py-2 rounded-full hover:bg-gray-100">
-            <NavLink to='/dashboard'
-              onClick={() => setProfileOpen(false)}
-              activeClassName="text-main border-b-2 border-main">Dashboard</NavLink>
-          </li>
-          <li className={`font-medium px-4 py-2 rounded-full hover:bg-gray-100
-            ${isAuthenticated ? "" : "hidden"}`}>
-            <NavLink to='/upload'
-              onClick={() => setProfileOpen(false)}
-              activeClassName="text-main border-b-2 border-main">Upload</NavLink>
-          </li>
-          <li className={`font-medium px-4 py-2 rounded-full hover:bg-gray-100
-            ${isAuthenticated ? "" : "hidden"}`}>
-            <NavLink to='/profile'
-              onClick={() => setProfileOpen(false)}
-              activeClassName="text-main border-b-2 border-main">Profile</NavLink>
-          </li>
-          <li className={`px-4
-              ${isAuthenticated ? "hidden" : ""}`}>
-            <button className="font-medium whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 rounded-full focus:outline-none"
-              onClick={() => loginWithRedirect()}>Sign In</button>
-          </li>
-          <li>
-            <button className={`flex flex-row font-medium px-4 py-2 rounded-full hover:bg-gray-100 focus:outline-none
+        <ul className="hidden md:flex gap-1 justify-end md:w-1 md:flex-1">
+          <NavLink className="font-medium px-4 py-2 rounded-full hover:bg-gray-100"
+            exact to='/'
+            onClick={() => setProfileOpen(false)}
+            activeClassName="text-main border-b-2 border-main bg-gray-100">Home</NavLink>
+          <NavLink className="font-medium px-4 py-2 rounded-full hover:bg-gray-100"
+            to='/dashboard'
+            onClick={() => setProfileOpen(false)}
+            activeClassName="text-main border-b-2 border-main bg-gray-100">Dashboard</NavLink>
+          <NavLink className={`font-medium px-4 py-2 rounded-full hover:bg-gray-100
+            ${isAuthenticated ? "" : "hidden"}`}
+            to='/upload'
+            onClick={() => setProfileOpen(false)}
+            activeClassName="text-main border-b-2 border-main bg-gray-100">Upload</NavLink>
+          <NavLink className={`font-medium px-4 py-2 rounded-full hover:bg-gray-100
+            ${isAuthenticated ? "" : "hidden"}`}
+            to='/profile'
+            onClick={() => setProfileOpen(false)}
+            activeClassName="text-main border-b-2 border-main bg-gray-100">Profile</NavLink>
+          <button className={`font-medium whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 mr-4 rounded-full focus:outline-none
+            ${isAuthenticated ? "hidden" : ""}`}
+            onClick={() => loginWithRedirect()}>Sign In</button>
+          <button className={`flex flex-row font-medium px-4 py-2 mr-4 rounded-full hover:bg-gray-100 focus:outline-none
               ${isAuthenticated ? "" : "hidden"}`}
-              onClick={() => setProfileOpen(!profileOpen)}>{`${isAuthenticated ? `${user.name}` : ""}`}
-              <img src={down_arrow} alt="" className="h-6 w-6" /></button>
-          </li>
+            onClick={() => setProfileOpen(!profileOpen)}>{`${isAuthenticated ? `${user.name}` : ""}`}
+            <img src={down_arrow} alt="" className="h-6 w-6" /></button>
         </ul>
 
         {/* Hamburger Menu */}
@@ -72,14 +65,16 @@ const Navbar = (props) => {
         <ul className="flex flex-col gap-2 justify-between px-2 py-4">
           <li className="flex flex-row hover:bg-gray-100 rounded-full">
             <img src={home} alt="" className="h-6 w-6 mx-4 my-auto" />
-            <NavLink to='/'
+            <NavLink exact to='/'
               className="py-2 rounded-full hover:bg-gray-100 text-lg"
+              activeClassName="underline"
               onClick={() => setMenuOpen(!menuOpen)}>Home</NavLink>
           </li>
           <li className="flex flex-row hover:bg-gray-100 rounded-full">
             <img src={dashboard} alt="" className="h-6 w-6 mx-4 my-auto" />
             <NavLink to='/dashboard'
               className="py-2 rounded-full hover:bg-gray-100 text-lg"
+              activeClassName="underline"
               onClick={() => setMenuOpen(!menuOpen)}>Dashboard</NavLink>
           </li>
           <li className={`flex flex-row hover:bg-gray-100 rounded-full
@@ -87,6 +82,7 @@ const Navbar = (props) => {
             <img src={upload} alt="" className="h-6 w-6 mx-4 my-auto" />
             <NavLink to='/upload'
               className="py-2 rounded-full hover:bg-gray-100 text-lg"
+              activeClassName="underline"
               onClick={() => setMenuOpen(!menuOpen)}>Upload</NavLink>
           </li>
           <li className={`flex flex-row hover:bg-gray-100 rounded-full
@@ -94,7 +90,16 @@ const Navbar = (props) => {
             <img src={profile} alt="" className="h-6 w-6 mx-4 my-auto" />
             <NavLink to='/profile'
               className="py-2 rounded-full hover:bg-gray-100 text-lg"
+              activeClassName="underline"
               onClick={() => setMenuOpen(!menuOpen)}>Profile</NavLink>
+          </li>
+          <li className={`flex flex-row hover:bg-gray-100 rounded-full
+            ${isAuthenticated ? "" : "hidden"}`}>
+            <img src={edit_profile} alt="" className="h-6 w-6 mx-4 my-auto" />
+            <NavLink to='/edit-profile'
+              className="py-2 rounded-full hover:bg-gray-100 text-lg"
+              activeClassName="underline"
+              onClick={() => setMenuOpen(!menuOpen)}>Edit Profile</NavLink>
           </li>
           <li className={`flex flex-row hover:bg-gray-100 rounded-full
             ${isAuthenticated ? "hidden" : ""}`}>
@@ -114,7 +119,7 @@ const Navbar = (props) => {
       <div className={`absolute right-4 z-10  -my-1 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
           ${profileOpen ? "visible" : "hidden"}`}>
         <div className="flex flex-col text-left">
-          <NavLink to='/update-profile'
+          <NavLink to='/edit-profile'
             className={`font-medium px-4 py-2 focus:outline-none
             ${props.location.pathname.includes("/user", 0) ? "hidden" : ""}`}
             onClick={() => setProfileOpen(!profileOpen)}>Edit Profile</NavLink>

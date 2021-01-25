@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withAuth0 } from '@auth0/auth0-react'
 
-class UpdateProfile extends Component {
+class EditProfile extends Component {
   state = {
     firstname: this.props.profile.profiles[0].firstname,
     lastname: this.props.profile.profiles[0].lastname,
@@ -111,7 +111,7 @@ class UpdateProfile extends Component {
   }
 }
 
-UpdateProfile.propTypes = {
+EditProfile.propTypes = {
   getProfiles: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 }
@@ -121,4 +121,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps,
-  { getProfiles, deleteProfile, addProfile })(withAuth0(UpdateProfile));
+  { getProfiles, deleteProfile, addProfile })(withAuth0(EditProfile));
