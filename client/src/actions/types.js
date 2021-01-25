@@ -10,3 +10,5 @@ export const GET_PROFILES = 'GET_PROFILES';
 export const GET_PROFILE_BY_ID = 'GET_PROFILE_BY_ID';
 export const ADD_PROFILE = 'ADD_PROFILE';
 export const DELETE_PROFILE = 'DELETE_PROFILE';
+// Not working, comment out
+// export const UPDATE_PROFILE = 'UPDATE_PROFILE';

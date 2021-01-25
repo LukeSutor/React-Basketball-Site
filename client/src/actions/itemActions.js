@@ -90,3 +90,14 @@ export const deleteProfile = (id) => dispatch => {
         payload: id
     }))
 };
+
+// Not working, comment out for now
+// export const updateProfile = (id, newProfile) => dispatch => {
+//   axios
+//     .put('/api/profiles', newProfile)
+//     .then(res =>
+//       dispatch({
+//         type: UPDATE_PROFILE,
+//         payload: newProfile
+//       }))
+// }

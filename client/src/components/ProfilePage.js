@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import { addProfile, getProfiles, getItemsById } from '../actions/itemActions';
-import ProfileScreen from './ProfileScreen';
-import Post from './Post';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { withAuth0 } from '@auth0/auth0-react';
+import React, { Component } from 'react'
+import { addProfile, getProfiles, getItemsById } from '../actions/itemActions'
+import ProfileScreen from './ProfileScreen'
+import Post from './Post'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { withAuth0 } from '@auth0/auth0-react'
 
 class ProfilePage extends Component {
   state = {
-    firstname: '',
-    lastname: '',
-    team: '',
-    position: '',
+    firstname: null,
+    lastname: null,
+    team: null,
+    position: null,
     jersey_number: null,
-    height_feet: '',
-    height_inches: '',
+    height_feet: null,
+    height_inches: null,
     weight: null,
     email: '',
     id: ''
@@ -136,9 +136,6 @@ class ProfilePage extends Component {
                   <input className="bg-gray-50 px-4 w-full outline-none h-10" type="number" id="weight" placeholder="Weight" onChange={this.onChange} />
                 </div>
                 <div className="mx-4 my-4">
-                  <p className="text-center text-red-600">Warning: Once you create your profile, the information cannot be changed.</p>
-                </div>
-                <div className="mx-4 my-4">
                   <input className="px-4 w-full h-10 rounded-full shadow-md outline-none text-white bg-main hover:bg-dark"
                     type="button"
                     value="Submit"
@@ -166,4 +163,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps,
-  { addProfile, getProfiles, getItemsById })(withAuth0(ProfilePage));
+  { addProfile, getProfiles, getItemsById })(withAuth0(ProfilePage))
