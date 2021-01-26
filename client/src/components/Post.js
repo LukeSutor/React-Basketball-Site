@@ -5,9 +5,26 @@ import { deleteItem } from '../actions/itemActions';
 import basketball from './images/basketball.png';
 
 class Post extends Component {
+  state = {
+    current_date: new Date(),
+    post_date: new Date(this.props.post.date)
+  }
 
   onDeleteClick = (id) => {
     this.props.deleteItem(id);
+  }
+
+  calcElapsed = () => {
+    var elapsed = Math.floor((this.state.current_date - this.state.post_date) / 1000)
+    if(elapsed < 60) {
+      return (elapsed.toString() + " second(s) ago" )
+    } else if(elapsed < 3600) {
+      return (Math.floor(elapsed / 60).toString() + " minute(s) ago")
+    } else if(elapsed < 86400) {
+      return (Math.floor(elapsed / 3600).toString() + " hour(s) ago")
+    } else {
+      return (Math.floor(elapsed / 86400).toString() + " day(s) ago")
+    }
   }
 
   render() {
@@ -62,6 +79,7 @@ class Post extends Component {
             onClick={this.onDeleteClick.bind(this, this.props.post._id)}
           >Delete</button>
         </div>
+        <p className="text-gray-600 text-sm pb-2">{this.calcElapsed()}</p>
       </div>
     );
   }

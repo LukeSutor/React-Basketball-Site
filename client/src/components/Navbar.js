@@ -23,7 +23,7 @@ const Navbar = (props) => {
   return (
     <nav>
       <div className="flex justify-between items-center border-gray-100 py-2 md:space-x-4">
-        <NavLink to='/' className="h-12 w-64 ml-8 mt-2">
+        <NavLink to='/' className="h-12 w-64 ml-4 md:ml-8 mt-2">
           <img src={basketball_logo} className="rounded-full" alt="basketball logo" /></NavLink>
         <ul className="hidden md:flex gap-1 justify-end md:w-1 md:flex-1">
           <NavLink className="font-medium px-4 py-2 rounded-full hover:bg-gray-100"
