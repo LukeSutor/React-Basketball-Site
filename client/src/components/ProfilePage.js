@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { addProfile, getProfiles, getItemsById } from '../actions/itemActions'
+import { Link } from 'react-router-dom'
 import ProfileScreen from './ProfileScreen'
 import Post from './Post'
+import Graphs from './Graphs'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withAuth0 } from '@auth0/auth0-react'
@@ -60,6 +62,7 @@ class ProfilePage extends Component {
     // Redirect user to dashboard
     this.props.history.push('/')
   }
+
   render() {
     const { isAuthenticated } = this.props.auth0;
     const profile = this.props.profile.profiles;
@@ -88,19 +91,62 @@ class ProfilePage extends Component {
         <div>
           {/* User's profile page */}
           {profile.map((profile) => (
-            <ProfileScreen key={profile.email} profile={profile} ppg={ppg} apg={apg} rpg={rpg} spg={spg} bpg={bpg} />
+            <ProfileScreen key={profile.email} profile={profile} />
           ))}
 
-          {/* Place where all the current user's posts are listed as well as the option to delete them */}
-          <div className="w-5/6 md:w-3/4 h-auto mx-auto mt-8 mb-4">
-            <p className={`text-5xl
-            ${items.length === 0 ? "hidden" : ""}`}>Posts</p>
+          {/* Navbar to switch between posts and graph of user progress */}
+          <div className="flex flex-row justify-around w-3/4 md:w-1/2 mx-auto shadow-lg rounded-full my-8 text-gray-600">
+            <Link to='/profile?tab=averages'
+              className={`w-1/2 p-4 rounded-full text-md md:text-xl lg:text-3xl text-center hover:bg-gray-100
+              ${this.props.location.search === '?tab=averages' ? "text-black font-semibold shadow-inner" : ""}`}>Averages</Link>
+            <Link to='/profile?tab=graph'
+              className={`w-1/2 p-4 rounded-full text-md md:text-xl lg:text-3xl text-center hover:bg-gray-100
+              ${this.props.location.search === '?tab=graph' ? "text-black font-semibold shadow-inner" : ""}`}>Graph</Link>
+            <Link to='/profile?tab=posts'
+              className={`w-1/2 p-4 rounded-full text-md md:text-xl lg:text-3xl text-center hover:bg-gray-100
+              ${this.props.location.search === '?tab=posts' ? "text-black font-semibold shadow-inner" : ""}`}>Posts</Link>
           </div>
-          <ul className="flex flex-col items-center">
-            {items.map((post) => (
-              <Post key={post._id + post.date} post={post} deletable={true} />
-            ))}
-          </ul>
+
+          {/* User's averages */}
+          <div className={`${this.props.location.search === '?tab=averages' ? "" : "hidden"}`}>
+            <div className="flex justify-evenly flex-wrap">
+              <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
+                <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">PPG</p>
+                <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{ppg}</p>
+              </div>
+              <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
+                <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">APG</p>
+                <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{apg}</p>
+              </div>
+              <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
+                <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">RPG</p>
+                <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{rpg}</p>
+              </div>
+              <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
+                <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">SPG</p>
+                <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{spg}</p>
+              </div>
+              <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
+                <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">BPG</p>
+                <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{bpg}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* User's stat graph */}
+          <div className={`${this.props.location.search === '?tab=graph' ? "" : "h-0 overflow-hidden"}`}>
+            <Graphs posts={this.props.item.items} id={this.state.id} />
+          </div>
+
+          {/* User's posts */}
+          <div className={`${this.props.location.search === '?tab=posts' ? "" : "hidden"}`}>
+            <ul className="flex flex-col items-center">
+              {items.map((post) => (
+                <Post key={post._id + post.date} post={post} deletable={true} />
+              ))}
+            </ul>
+          </div>
+
           {/* Form for users to enter their profile information, hidden once their information is in the api */}
           <div className={`bg-gray-50 w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4
           ${profile.length === 0 ? "visible" : "hidden"}`}>

@@ -32,7 +32,6 @@ class Dashboard extends Component {
     const { isAuthenticated } = this.props.auth0;
     const { items } = this.props.item;
     const profile = this.props.profile.profiles;
-    console.log(this.props.auth0)
     return (
       <div className="py-4">
         <ul className="flex flex-col items-center">

@@ -2,17 +2,6 @@ import React, { Component } from 'react';
 
 class ProfileScreen extends Component {
   render() {
-    // Declare all averages as 0
-    let ppg = 0, apg = 0, rpg = 0, spg = 0, bpg = 0
-    // If the averages passed in by the parent component arent NaN, set all local averages to the prop averages
-    // This ensures averages on the site never read "NaN"
-    if(!isNaN(this.props.ppg)) {
-      ppg = this.props.ppg
-      apg = this.props.apg
-      rpg = this.props.rpg
-      spg = this.props.spg
-      bpg = this.props.bpg
-    }
     
     return (
       <div>
@@ -45,28 +34,6 @@ class ProfileScreen extends Component {
           <div className="text-center pt-10">
             <p className="text-xl md:text-3xl lg:text-4xl font-semibold">{this.props.profile.team}</p>
             <p className="text-gray-600 text-md md:text-xl lg:text-2xl">{this.props.profile.position}</p>
-          </div>
-        </div>
-        <div className="flex justify-evenly flex-wrap py-4">
-          <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
-            <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">PPG</p>
-            <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{ppg}</p>
-          </div>
-          <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
-            <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">APG</p>
-            <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{apg}</p>
-          </div>
-          <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
-            <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">RPG</p>
-            <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{rpg}</p>
-          </div>
-          <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
-            <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">SPG</p>
-            <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{spg}</p>
-          </div>
-          <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
-            <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">BPG</p>
-            <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{bpg}</p>
           </div>
         </div>
       </div>

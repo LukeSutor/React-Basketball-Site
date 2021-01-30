@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import basketball_background from './images/basketball_background_1.png';
-import { withAuth0 } from '@auth0/auth0-react';
+import basketball_background from './images/basketball_background_1.png'
+import { withAuth0 } from '@auth0/auth0-react'
 
 class Home extends Component {
+
   render() {
     const { isAuthenticated, loginWithRedirect } = this.props.auth0;
     return (

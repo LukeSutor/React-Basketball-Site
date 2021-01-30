@@ -41,7 +41,7 @@ const Navbar = (props) => {
             activeClassName="text-main border-b-2 border-main bg-gray-100">Upload</NavLink>
           <NavLink className={`font-medium px-4 py-2 rounded-full hover:bg-gray-100
             ${isAuthenticated ? "" : "hidden"}`}
-            to='/profile'
+            to='/profile?tab=averages'
             onClick={() => setProfileOpen(false)}
             activeClassName="text-main border-b-2 border-main bg-gray-100">Profile</NavLink>
           <button className={`font-medium whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 mr-4 rounded-full focus:outline-none
@@ -89,7 +89,7 @@ const Navbar = (props) => {
           <li className={`flex flex-row hover:bg-gray-100 rounded-full
             ${isAuthenticated ? "" : "hidden"}`}>
             <img src={profile} alt="" className="h-6 w-6 mx-4 my-auto" />
-            <NavLink to='/profile'
+            <NavLink to='/profile?tab=averages'
               className="py-2 rounded-full hover:bg-gray-100 text-lg"
               activeClassName="underline"
               onClick={() => setMenuOpen(!menuOpen)}>Profile</NavLink>

@@ -31,7 +31,7 @@ class Post extends Component {
     return (
       <div className="bg-gray-50 w-3/4 md:w-3/5 lg:w-1/2 text-center my-4 rounded-lg shadow-md overflow-hidden">
         <div className="flex justify-between">
-          <Link to={{ pathname: "/user/"+this.props.post.name, user_id: this.props.post.id, post_id: this.props.post.id}}>
+          <Link to={{ pathname: "/user/"+this.props.post.name.replace(/\s+/g, '-'), user_id: this.props.post.id, post_id: this.props.post.id}}>
             <li className="text-center text-sm md:text-lg font-semibold my-3 md:my-2 ml-16 transform duration-150 hover:scale-110 hover:text-main">{this.props.post.name}</li>
           </Link>
           <li className="text-center text-sm md:text-lg text-gray-600 font-normal my-3 md:my-2 mr-16">{this.props.post.team}</li>
