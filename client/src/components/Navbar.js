@@ -50,6 +50,7 @@ const Navbar = (props) => {
           <button className={`flex flex-row font-medium px-4 py-2 mr-4 rounded-full hover:bg-gray-100 focus:outline-none
               ${isAuthenticated ? "" : "hidden"}`}
             onClick={() => setProfileOpen(!profileOpen)}>{`${isAuthenticated ? `${user.name}` : ""}`}
+            <img src={`${isAuthenticated ? `${user.picture}` : ""}`} alt="" className="h-6 w-6 mx-1 rounded-full" />
             <img src={down_arrow} alt="" className="h-6 w-6" /></button>
         </ul>
 
@@ -125,6 +126,10 @@ const Navbar = (props) => {
             onClick={() => setProfileOpen(!profileOpen)}>Edit Profile</NavLink>
           <button className="font-medium px-4 py-1 focus:outline-none text-left"
             onClick={() => logout()}>Logout</button>
+          {<NavLink to='/manage'
+            className={`text-red-600 font-medium px-4 py-2 focus:outline-none
+            ${isAuthenticated ? `${user['https://the-stat-sheet.herokuapp.com/admin'] ? "" : "hidden"}` : ""}`}
+            onClick={() => setProfileOpen(!profileOpen)}>Manage</NavLink>}
         </div>
       </div>
     </nav>

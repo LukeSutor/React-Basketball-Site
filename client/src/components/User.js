@@ -1,14 +1,20 @@
-import React, { Component } from 'react';
-import ProfileScreen from './ProfileScreen';
-import Post from './Post';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { getProfileById } from '../actions/itemActions';
+import React, { Component } from 'react'
+import ProfileScreen from './ProfileScreen'
+import Post from './Post'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { getProfileById, getProfiles } from '../actions/itemActions'
+import { withAuth0 } from '@auth0/auth0-react'
 
 class User extends Component {
   state = {
     name: null,
-    user_id: null
+    user_id: null,
+    email: null
+  }
+
+  UNSAFE_componentWillMount() {
+      this.setState({ email: this.props.auth0.user.email })
   }
 
   componentDidMount() {
@@ -16,6 +22,10 @@ class User extends Component {
     this.setState({ user_id: this.props.location.user_id })
     this.props.getProfileById(this.props.location.user_id)
     window.scrollTo(0, 0)
+  }
+
+  componentWillUnmount() {
+    this.props.getProfiles(this.state.email)
   }
 
   checkProfile = (post) => {
@@ -79,4 +89,5 @@ const mapStateToProps = (state) => ({
   item: state.item
 })
 
-export default connect(mapStateToProps, { getProfileById })(User);
+export default connect(mapStateToProps, 
+  { getProfileById, getProfiles })(withAuth0(User));
