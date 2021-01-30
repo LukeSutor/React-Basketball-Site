@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
-import { getItems, getProfiles } from '../actions/itemActions';
-import Post from './Post';
-import PropTypes from 'prop-types';
-import { withAuth0 } from '@auth0/auth0-react';
+import Post from './Post'
+import { connect } from 'react-redux'
+import { getItems, getProfiles } from '../actions/itemActions'
+import PropTypes from 'prop-types'
+import { withAuth0 } from '@auth0/auth0-react'
 
 class Dashboard extends Component {
   state = {

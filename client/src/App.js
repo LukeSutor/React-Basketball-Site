@@ -7,6 +7,7 @@ import Upload from './components/Upload'
 import ProfilePage from './components/ProfilePage'
 import User from './components/User'
 import EditProfile from './components/EditProfile'
+import Manage from './components/Manage'
 import './App.css'
 
 import { Provider } from 'react-redux'
@@ -24,6 +25,7 @@ function App() {
           <Route path='/profile' component={ProfilePage} />
           <Route path='/user/:name' component={User} />
           <Route path='/edit-profile' component={EditProfile} />
+          <Route path='/manage' component={Manage} />
         </BrowserRouter>
       </div>
     </Provider>

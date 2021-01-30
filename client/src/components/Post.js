@@ -5,16 +5,33 @@ import { deleteItem } from '../actions/itemActions';
 import basketball from './images/basketball.png';
 
 class Post extends Component {
+  state = {
+    current_date: new Date(),
+    post_date: new Date(this.props.post.date)
+  }
 
   onDeleteClick = (id) => {
     this.props.deleteItem(id);
+  }
+
+  calcElapsed = () => {
+    var elapsed = Math.floor((this.state.current_date - this.state.post_date) / 1000)
+    if(elapsed < 60) {
+      return (elapsed.toString() + " second(s) ago" )
+    } else if(elapsed < 3600) {
+      return (Math.floor(elapsed / 60).toString() + " minute(s) ago")
+    } else if(elapsed < 86400) {
+      return (Math.floor(elapsed / 3600).toString() + " hour(s) ago")
+    } else {
+      return (Math.floor(elapsed / 86400).toString() + " day(s) ago")
+    }
   }
 
   render() {
     return (
       <div className="bg-gray-50 w-3/4 md:w-3/5 lg:w-1/2 text-center my-4 rounded-lg shadow-md overflow-hidden">
         <div className="flex justify-between">
-          <Link to={{ pathname: "/user/"+this.props.post.name, user_id: this.props.post.id, post_id: this.props.post.id}}>
+          <Link to={{ pathname: "/user/"+this.props.post.name.replace(/\s+/g, '-'), user_id: this.props.post.id, post_id: this.props.post.id}}>
             <li className="text-center text-sm md:text-lg font-semibold my-3 md:my-2 ml-16 transform duration-150 hover:scale-110 hover:text-main">{this.props.post.name}</li>
           </Link>
           <li className="text-center text-sm md:text-lg text-gray-600 font-normal my-3 md:my-2 mr-16">{this.props.post.team}</li>
@@ -62,6 +79,7 @@ class Post extends Component {
             onClick={this.onDeleteClick.bind(this, this.props.post._id)}
           >Delete</button>
         </div>
+        <p className="text-gray-600 text-sm pb-2">{this.calcElapsed()}</p>
       </div>
     );
   }
