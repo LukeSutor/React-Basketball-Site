@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import ProfileScreen from './ProfileScreen'
-import Post from './Post'
+import Averages from './Averages'
 import Graphs from './Graphs'
+import Post from './Post'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { getProfileById, getProfiles } from '../actions/itemActions'
@@ -41,27 +42,6 @@ class User extends Component {
   render() {
     const profile = this.props.profile.profiles;
     const { items } = this.props.item;
-    const user_posts = items.filter(post => this.checkProfile(post))
-    let posts = 0;
-    let ppg = 0;
-    let apg = 0;
-    let rpg = 0;
-    let spg = 0;
-    let bpg = 0;
-    for (let i = 0; i < user_posts.length; i++) {
-      ppg += user_posts[i].points;
-      apg += user_posts[i].assists;
-      rpg += user_posts[i].rebounds;
-      spg += user_posts[i].steals;
-      bpg += user_posts[i].blocks;
-      posts++
-    }
-    ppg = Math.round((ppg / posts) * 100) / 100
-    apg = Math.round((apg / posts) * 100) / 100
-    rpg = Math.round((rpg / posts) * 100) / 100
-    spg = Math.round((spg / posts) * 100) / 100
-    bpg = Math.round((bpg / posts) * 100) / 100
-    // profile[0].user_id === this.state.user_id
     return (
       profile[0].user_id === this.state.user_id && (
         <div>
@@ -85,28 +65,7 @@ class User extends Component {
 
           {/* User's averages */}
           <div className={`${this.props.location.search === '?tab=averages' ? "" : "hidden"}`}>
-            <div className="flex justify-evenly flex-wrap">
-              <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
-                <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">PPG</p>
-                <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{ppg}</p>
-              </div>
-              <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
-                <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">APG</p>
-                <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{apg}</p>
-              </div>
-              <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
-                <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">RPG</p>
-                <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{rpg}</p>
-              </div>
-              <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
-                <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">SPG</p>
-                <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{spg}</p>
-              </div>
-              <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
-                <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">BPG</p>
-                <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{bpg}</p>
-              </div>
-            </div>
+            <Averages posts={this.props.item.items} id={this.state.user_id} />
           </div>
 
           {/* User's stat graph */}

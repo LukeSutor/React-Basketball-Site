@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+mongoose.set('useCreateIndex', true);
 
 // Create profile Schema
 const ProfileSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
   user_id: {
     type: String,
     required: true
@@ -44,5 +50,10 @@ const ProfileSchema = new Schema({
     required: true
   }
 });
+
+ProfileSchema.path('username').validate(async (username) => {
+  const count = await mongoose.models.profile.countDocuments({ username })
+  return !count
+}, 'Username taken')
 
 module.exports = Profile = mongoose.model('profile', ProfileSchema);

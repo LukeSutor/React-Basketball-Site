@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import basketball_logo from './images/logo2.png'
+import basketball_logo from './images/logo.png'
 import hamburger_icon from './images/hamburger_icon.png'
 import home from './images/home.png'
 import dashboard from './images/dashboard.png'
@@ -23,31 +23,31 @@ const Navbar = (props) => {
   return (
     <nav>
       <div className="flex justify-between items-center border-gray-100 py-2 md:space-x-4">
-        <NavLink to='/' className="h-12 w-64 ml-4 md:ml-8 mt-2">
+        <NavLink to='/' className="h-12 w-48 ml-4 md:ml-8 mt-2">
           <img src={basketball_logo} className="rounded-full" alt="basketball logo" /></NavLink>
-        <ul className="hidden md:flex gap-1 justify-end md:w-1 md:flex-1">
-          <NavLink className="font-medium px-4 py-2 rounded-full hover:bg-gray-100"
+        <ul className="hidden md:flex gap-1 justify-end md:w-1 md:flex-1 text-sm text-gray-500 font-medium">
+          <NavLink className="px-4 py-2 rounded-full hover:bg-gray-100"
             exact to='/'
             onClick={() => setProfileOpen(false)}
-            activeClassName="text-main border-b-2 border-main bg-gray-100">Home</NavLink>
-          <NavLink className="font-medium px-4 py-2 rounded-full hover:bg-gray-100"
+            activeClassName="text-black shadow-inner bg-gray-50">Home</NavLink>
+          <NavLink className="px-4 py-2 rounded-full hover:bg-gray-100"
             to='/dashboard'
             onClick={() => setProfileOpen(false)}
-            activeClassName="text-main border-b-2 border-main bg-gray-100">Dashboard</NavLink>
-          <NavLink className={`font-medium px-4 py-2 rounded-full hover:bg-gray-100
+            activeClassName="text-black shadow-inner bg-gray-50">Dashboard</NavLink>
+          <NavLink className={`px-4 py-2 rounded-full hover:bg-gray-100
             ${isAuthenticated ? "" : "hidden"}`}
             to='/upload'
             onClick={() => setProfileOpen(false)}
-            activeClassName="text-main border-b-2 border-main bg-gray-100">Upload</NavLink>
-          <NavLink className={`font-medium px-4 py-2 rounded-full hover:bg-gray-100
+            activeClassName="text-black shadow-inner bg-gray-50">Upload</NavLink>
+          <NavLink className={`px-4 py-2 rounded-full hover:bg-gray-100
             ${isAuthenticated ? "" : "hidden"}`}
             to='/profile?tab=averages'
             onClick={() => setProfileOpen(false)}
-            activeClassName="text-main border-b-2 border-main bg-gray-100">Profile</NavLink>
-          <button className={`font-medium whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 mr-4 rounded-full focus:outline-none
+            activeClassName="text-black shadow-inner bg-gray-50">Profile</NavLink>
+          <button className={`whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 mr-4 rounded-full focus:outline-none
             ${isAuthenticated ? "hidden" : ""}`}
             onClick={() => loginWithRedirect()}>Sign In</button>
-          <button className={`flex flex-row font-medium px-4 py-2 mr-4 rounded-full hover:bg-gray-100 focus:outline-none
+          <button className={`flex flex-row text-black font-medium px-4 py-2 mr-4 rounded-full hover:bg-gray-100 focus:outline-none
               ${isAuthenticated ? "" : "hidden"}`}
             onClick={() => setProfileOpen(!profileOpen)}>{`${isAuthenticated ? `${user.name}` : ""}`}
             <img src={`${isAuthenticated ? `${user.picture}` : ""}`} alt="" className="h-6 w-6 mx-1 rounded-full" />
@@ -119,7 +119,7 @@ const Navbar = (props) => {
       {/* Dropdown menu for profile icon */}
       <div className={`absolute right-4 z-10  -my-1 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
           ${profileOpen ? "visible" : "hidden"}`}>
-        <div className="flex flex-col text-left">
+        <div className="flex flex-col text-left text-sm">
           <NavLink to='/edit-profile'
             className={`font-medium px-4 py-2 focus:outline-none
             ${props.location.pathname.includes("/user", 0) ? "hidden" : ""}`}

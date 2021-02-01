@@ -57,7 +57,7 @@ class Upload extends Component {
     }
 
     // Add item to redux
-    this.props.addItem(newPost, 'test')
+    this.props.addItem(newPost)
 
     // Redirect user to dashboard
     this.props.history.push('/dashboard')
