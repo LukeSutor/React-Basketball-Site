@@ -26,7 +26,7 @@ class Averages extends Component {
     spg = spg = Math.round((spg / posts.length) * 100) / 100
     bpg = bpg = Math.round((bpg / posts.length) * 100) / 100
     return (
-      <div className="flex justify-evenly flex-wrap">
+      <div className="flex justify-evenly flex-wrap pb-16">
         <div className="py-8 w-32 md:w-56 lg:w-80 text-center">
           <p className="text-gray-600 text-md md:text-2xl lg:text-3xl font-light pb-1">PPG</p>
           <p className="text-xl md:text-4xl lg:text-5xl font-semibold">{ppg}</p>

@@ -11,6 +11,7 @@ import edit_profile from './images/edit_profiile.png'
 import sign_in from './images/sign_in.png'
 import log_out from './images/logout.png'
 import down_arrow from './images/down_arrow.png'
+import { useTransition, animated } from 'react-spring'
 
 const Navbar = (props) => {
 
@@ -20,10 +21,18 @@ const Navbar = (props) => {
 
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 
+  // Animation code
+  const profileTransition = useTransition(profileOpen, null, {
+    from: { marginTop: -200, },
+    enter: { opacity: 1, marginTop: 0 },
+    leave: { opacity: 0 }
+  })
+
+
   return (
     <nav>
-      <div className="flex justify-between items-center border-gray-100 py-2 md:space-x-4">
-        <NavLink to='/' className="h-12 w-48 ml-4 md:ml-8 mt-2">
+      <div className="z-20 flex justify-between items-center border-gray-100 py-2 md:space-x-4">
+        <NavLink to='/' className="h-12 w-48 ml-4 lg:ml-8 mt-2">
           <img src={basketball_logo} className="rounded-full" alt="basketball logo" /></NavLink>
         <ul className="hidden md:flex gap-1 justify-end md:w-1 md:flex-1 text-sm text-gray-500 font-medium">
           <NavLink className="px-4 py-2 rounded-full hover:bg-gray-100"
@@ -51,7 +60,7 @@ const Navbar = (props) => {
               ${isAuthenticated ? "" : "hidden"}`}
             onClick={() => setProfileOpen(!profileOpen)}>{`${isAuthenticated ? `${user.name}` : ""}`}
             <img src={`${isAuthenticated ? `${user.picture}` : ""}`} alt="" className="h-6 w-6 mx-1 rounded-full" />
-            <img src={down_arrow} alt="" className="h-6 w-6" /></button>
+            <img src={down_arrow} alt="" className={`h-6 w-6 ${profileOpen ? "transform rotate-180" : ""}`} /></button>
         </ul>
 
         {/* Hamburger Menu */}
@@ -117,21 +126,24 @@ const Navbar = (props) => {
         </ul>
       </div>
       {/* Dropdown menu for profile icon */}
-      <div className={`absolute right-4 z-10  -my-1 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
-          ${profileOpen ? "visible" : "hidden"}`}>
-        <div className="flex flex-col text-left text-sm">
-          <NavLink to='/edit-profile'
-            className={`font-medium px-4 py-2 focus:outline-none
-            ${props.location.pathname.includes("/user", 0) ? "hidden" : ""}`}
-            onClick={() => setProfileOpen(!profileOpen)}>Edit Profile</NavLink>
-          <button className="font-medium px-4 py-1 focus:outline-none text-left"
-            onClick={() => logout()}>Logout</button>
-          {<NavLink to='/manage'
-            className={`text-red-600 font-medium px-4 py-2 focus:outline-none
-            ${isAuthenticated ? `${user['https://the-stat-sheet.herokuapp.com/admin'] ? "" : "hidden"}` : ""}`}
-            onClick={() => setProfileOpen(!profileOpen)}>Manage</NavLink>}
-        </div>
-      </div>
+      {profileTransition.map(({ item, key, props }) =>
+        item
+          ?
+          <animated.div style={props} className={`absolute z-10 right-8 -my-4 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
+              ${isAuthenticated ? "" : "hidden"}`}>
+            <div className="flex flex-col text-left text-sm">
+              <NavLink to='/edit-profile'
+                className="font-medium px-4 py-2 focus:outline-none" // Used to have check if user was on another user's profile and hide it
+                onClick={() => setProfileOpen(!profileOpen)}>Edit Profile</NavLink>
+              <button className="font-medium px-4 py-1 focus:outline-none text-left"
+                onClick={() => logout()}>Logout</button>
+              {<NavLink to='/manage'
+                className={`text-red-600 font-medium px-4 py-2 focus:outline-none
+                  ${isAuthenticated ? `${user['https://the-stat-sheet.herokuapp.com/admin'] ? "" : "hidden"}` : ""}`}
+                onClick={() => setProfileOpen(!profileOpen)}>Manage</NavLink>}
+            </div>
+          </animated.div>
+          : <></>)}
     </nav>
   );
 };
