@@ -47,7 +47,7 @@ function ProfilePage(props) {
   const [toggle, setToggle] = useState(0)
 
 
-  // React Spring transition for posts
+  // React Spring transition between averages, graph, and posts
   const profileTransition = useTransition(toggle, null, {
     from: { opacity: 0, transform: 'translate3d(-100%, 0, 0)' },
     enter: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
@@ -90,7 +90,6 @@ function ProfilePage(props) {
                 <animated.div key={key} style={props} className="absolute w-full">
                   <Graphs posts={items} id={id} />
                 </animated.div>
-
 
               :
               <ul className="absolute w-full flex flex-col items-center">

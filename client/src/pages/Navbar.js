@@ -17,17 +17,18 @@ const Navbar = (props) => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const [profileOpen, setProfileOpen] = useState(false);
-
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 
   // Animation code
+
+  // Profile tab animation
+  const [profileOpen, setProfileOpen] = useState(false);
+
   const profileTransition = useTransition(profileOpen, null, {
     from: { marginTop: -200, },
     enter: { opacity: 1, marginTop: 0 },
     leave: { opacity: 0 }
   })
-
 
   return (
     <nav>
@@ -50,7 +51,7 @@ const Navbar = (props) => {
             activeClassName="text-black shadow-inner bg-gray-50">Upload</NavLink>
           <NavLink className={`px-4 py-2 rounded-full hover:bg-gray-100
             ${isAuthenticated ? "" : "hidden"}`}
-            to='/profile?tab=averages'
+            to='/profile'
             onClick={() => setProfileOpen(false)}
             activeClassName="text-black shadow-inner bg-gray-50">Profile</NavLink>
           <button className={`whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 mr-4 rounded-full focus:outline-none
@@ -98,7 +99,7 @@ const Navbar = (props) => {
           <li className={`flex flex-row hover:bg-gray-100 rounded-full
             ${isAuthenticated ? "" : "hidden"}`}>
             <img src={profile} alt="" className="h-6 w-6 mx-4 my-auto" />
-            <NavLink to='/profile?tab=averages'
+            <NavLink to='/profile'
               className="py-2 rounded-full hover:bg-gray-100 text-lg"
               activeClassName="underline"
               onClick={() => setMenuOpen(!menuOpen)}>Profile</NavLink>

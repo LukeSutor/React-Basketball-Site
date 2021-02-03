@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import ProfileScreen from './components/ProfileScreen'
 import Averages from './components/Averages'
 import Graphs from './components/Graphs'
@@ -7,85 +6,92 @@ import Post from './components/Post'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { getProfileById, getProfiles } from '../actions/itemActions'
-import { withAuth0 } from '@auth0/auth0-react'
+import { useTransition, animated } from 'react-spring'
 
-class User extends Component {
-  state = {
-    name: null,
-    user_id: null,
-    email: null
-  }
+function User(props) {
 
-  UNSAFE_componentWillMount() {
-    if (this.props.auth0.isAuthenticated) {
-      this.setState({ email: this.props.auth0.user.email })
-    }
-  }
+  const [user_id, setUser_id] = useState(null)
 
-  componentDidMount() {
-    this.setState({ name: this.props.match.params.name })
-    this.setState({ user_id: this.props.location.user_id })
-    this.props.getProfileById(this.props.location.user_id)
+  const profile = props.profile.profiles;
+
+  const { items } = props.item;
+
+  useEffect(() => {
+    props.getProfileById(props.location.user_id)
     window.scrollTo(0, 0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    setUser_id(props.location.user_id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user_id])
+
+  function checkProfile(post) {
+    return post.id === user_id;
   }
 
-  componentWillUnmount() {
-    if (this.props.auth0.isAuthenticated) {
-      this.props.getProfiles(this.state.email)
-    }
-  }
+  // Animation code
 
-  checkProfile = (post) => {
-    return post.id === this.state.user_id;
-  }
+  // Animation and style toggler 0 = averages, 1 = graph, 2 = posts
+  const [toggle, setToggle] = useState(0)
 
-  render() {
-    const profile = this.props.profile.profiles;
-    const { items } = this.props.item;
-    return (
-      profile[0].user_id === this.state.user_id && (
-        <div>
-          {/* User's profile page */}
-          {profile.map((profile) => (
-            <ProfileScreen key={profile.email} profile={profile} />
-          ))}
+  // React Spring transition between averages, graph, and posts
+  const profileTransition = useTransition(toggle, null, {
+    from: { opacity: 0, transform: 'translate3d(-100%, 0, 0)' },
+    enter: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+    leave: { opacity: 0, transform: 'translate3d(100%, 0, 0)' }
+  })
 
-          {/* Navbar to switch between posts and graph of user progress */}
-          <div className="flex flex-row justify-around w-3/4 md:w-1/2 mx-auto shadow-lg rounded-full my-8 text-gray-600">
-            <Link to={`/user/${this.props.match.params.name}?tab=averages`}
-              className={`w-1/2 p-4 rounded-full text-md md:text-xl lg:text-3xl text-center hover:bg-gray-100
-              ${this.props.location.search === '?tab=averages' ? "text-black font-semibold shadow-inner" : ""}`}>Averages</Link>
-            <Link to={`/user/${this.props.match.params.name}?tab=graph`}
-              className={`w-1/2 p-4 rounded-full text-md md:text-xl lg:text-3xl text-center hover:bg-gray-100
-              ${this.props.location.search === '?tab=graph' ? "text-black font-semibold shadow-inner" : ""}`}>Graph</Link>
-            <Link to={`/user/${this.props.match.params.name}?tab=posts`}
-              className={`w-1/2 p-4 rounded-full text-md md:text-xl lg:text-3xl text-center hover:bg-gray-100
-              ${this.props.location.search === '?tab=posts' ? "text-black font-semibold shadow-inner" : ""}`}>Posts</Link>
-          </div>
+  return (
+    profile[0].user_id === user_id && (
+      <div>
+        {/* User's profile page */}
+        {profile.map((profile) => (
+          <ProfileScreen key={profile.email} profile={profile} />
+        ))}
 
-          {/* User's averages */}
-          <div className={`${this.props.location.search === '?tab=averages' ? "" : "hidden"}`}>
-            <Averages posts={this.props.item.items} id={this.state.user_id} />
-          </div>
-
-          {/* User's stat graph */}
-          <div className={`${this.props.location.search === '?tab=graph' ? "" : "h-0 overflow-hidden"}`}>
-            <Graphs posts={this.props.item.items} id={this.state.user_id} />
-          </div>
-
-          <ul className={`flex flex-col items-center
-          ${this.props.location.search === '?tab=posts' ? "" : "hidden"}`}>
-            {/* Filter through all posts to check if the post id matches the profile id of the profile shown on screen
-                Then, map through those posts and show them. */}
-            {items.filter(post => this.checkProfile(post))
-              .map((post) => (
-                <Post key={post._id + post.date} post={post} deletable={false} />
-              ))}
-          </ul>
+        {/* Navbar to switch between averages, posts, and graph of user progress */}
+        <div className="flex flex-row justify-around w-3/4 md:w-1/2 mx-auto shadow-lg rounded-full my-8 text-gray-600">
+          <button onClick={() => setToggle(0)}
+            className={`w-1/2 p-4 rounded-full text-md md:text-xl lg:text-3xl text-center hover:bg-gray-100 focus:outline-none
+              ${toggle === 0 ? "text-black font-semibold shadow-inner" : ""}`}>Averages</button>
+          <button onClick={() => setToggle(1)}
+            className={`w-1/2 p-4 rounded-full text-md md:text-xl lg:text-3xl text-center hover:bg-gray-100 focus:outline-none
+              ${toggle === 1 ? "text-black font-semibold shadow-inner" : ""}`}>Graph</button>
+          <button onClick={() => setToggle(2)}
+            className={`w-1/2 p-4 rounded-full text-md md:text-xl lg:text-3xl text-center hover:bg-gray-100 focus:outline-none
+              ${toggle === 2 ? "text-black font-semibold shadow-inner" : ""}`}>Posts</button>
         </div>
-      )
-    );
-  }
+        {console.log(toggle)}
+        {console.log(props)}
+
+        {/* Transitions between averages, graph, and posts */}
+        {profileTransition.map(({ item, key, props }) =>
+          item < 2
+            ?
+            item === 0
+              ?
+              <animated.div key={key} style={props} className="absolute w-full">
+                <Averages posts={items} id={user_id} />
+              </animated.div>
+              :
+              <animated.div key={key} style={props} className="absolute w-full">
+                <Graphs posts={items} id={user_id} />
+              </animated.div>
+
+            :
+            <ul className="absolute w-full flex flex-col items-center">
+              {items.filter(post => checkProfile(post)).map((post) => (
+                <animated.div key={post._id} style={props} className="w-full">
+                  <Post key={post._id + post.date} post={post} deletable={false} />
+                </animated.div>
+              ))}
+            </ul>
+        )}
+      </div>
+    )
+  );
 }
 
 User.propTypes = {
@@ -100,4 +106,4 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps,
-  { getProfileById, getProfiles })(withAuth0(User));
+  { getProfileById, getProfiles })(User);

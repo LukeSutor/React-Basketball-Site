@@ -4,7 +4,7 @@ import { withAuth0 } from '@auth0/auth0-react'
 
 class Graphs extends Component {
 
-  id = this.props.auth0.user.sub
+  id = this.props.id
 
   checkPost = (post) => {
     return post.id === this.state.id;
@@ -22,6 +22,7 @@ class Graphs extends Component {
   render() {
     return (
       <div className="w-5/6 md:w-3/4 h-auto mx-auto mt-8 mb-4">
+          {console.log(this.props)}
         <Line
           width={100}
           height={400}
