@@ -12,7 +12,7 @@ const Profile = require('../../models/Profile')
 // @access Public
 router.get('/', (req, res) => {
   Profile.find()
-  .sort({ profileName: -1})
+    .sort({ profileName: -1 })
     .then(profiles => res.json(profiles))
 });
 
@@ -22,6 +22,7 @@ router.get('/', (req, res) => {
 // @access Public
 router.post('/', (req, res) => {
   const newProfile = new Profile({
+    username: req.body.username,
     user_id: req.body.user_id,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -35,7 +36,13 @@ router.post('/', (req, res) => {
   })
 
   newProfile.save()
-  .then(profile => res.json(profile));
+    .then(profile => res.json(profile))
+    .catch((err) => {
+      if(err.errors.username.properties.message === 'Username taken') {
+        return res.status(500).send('Username Taken');
+      }
+      return res.status(400).send('One or more fields blank');
+    })
 });
 
 
@@ -44,8 +51,8 @@ router.post('/', (req, res) => {
 // @access Public
 router.delete('/:id', (req, res) => {
   Profile.findById(req.params.id)
-    .then(item => item.remove().then(() => res.json({success: true})))
-    .catch(err => res.status(404).json({success: false}));
+    .then(item => item.remove().then(() => res.json({ success: true })))
+    .catch(err => res.status(404).json({ success: false }));
 });
 
 module.exports = router;

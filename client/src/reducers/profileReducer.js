@@ -19,7 +19,8 @@ function profileReducer(state = initialState, action) {
     case ADD_PROFILE:
       return {
         ...state,
-        items: [action.payload, ...state.profiles]
+        profiles: [action.payload, ...state.profiles],
+        error: action.error
       }
       case DELETE_PROFILE:
         return {

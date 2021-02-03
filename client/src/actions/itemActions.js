@@ -37,11 +37,11 @@ export const addItem = (item) => dispatch => {
 export const deleteItem = (id) => dispatch => {
   axios
     .delete(`/api/items/${id}`)
-    .then(res => 
+    .then(res =>
       dispatch({
         type: DELETE_ITEM,
         payload: id
-    }))
+      }))
 };
 
 export const setItemsLoading = () => {
@@ -79,16 +79,16 @@ export const addProfile = (profile) => dispatch => {
         type: ADD_PROFILE,
         payload: res.data
       }))
-};
+}
 
 export const deleteProfile = (id) => dispatch => {
   axios
     .delete(`/api/profiles/${id}`)
-    .then(res => 
+    .then(res =>
       dispatch({
         type: DELETE_PROFILE,
         payload: id
-    }))
+      }))
 };
 
 // Not working, comment out for now

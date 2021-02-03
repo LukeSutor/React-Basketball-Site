@@ -20,12 +20,12 @@ class ProfileScreen extends Component {
                   <p className="text-black text-lg md:text-2xl lg:text-2xl mt-1 lg:mt-3 px-3">ft</p>
                   {this.props.profile.height_inches}
                   <p className="text-black text-lg md:text-2xl lg:text-2xl mt-1 lg:mt-3 px-3">in</p></div>
-                <p className="text-md md:text-lg lg:text-xl font-light">Height</p>
+                <p className="text-md text-gray-500 md:text-lg lg:text-xl font-light">Height</p>
               </div>
               <div className="my-auto">
                 <div className="text-3xl md:text-4xl lg:text-5xl text-main font-semibold inline-flex">{this.props.profile.weight}
                   <p className="text-black text-lg md:text-2xl lg:text-2xl mt-1 lg:mt-3 px-3">lbs</p></div>
-                <p className="text-md md:text-lg lg:text-xl font-light">Weight</p>
+                <p className="text-md text-gray-500 md:text-lg lg:text-xl font-light">Weight</p>
               </div>
             </div>
           </div>
@@ -33,7 +33,7 @@ class ProfileScreen extends Component {
         <div className="bg-gray-100 w-full h-32 md:h-36 lg:h-40">
           <div className="text-center pt-10">
             <p className="text-xl md:text-3xl lg:text-4xl font-semibold">{this.props.profile.team}</p>
-            <p className="text-gray-600 text-md md:text-xl lg:text-2xl">{this.props.profile.position}</p>
+            <p className="text-gray-500 text-md md:text-xl lg:text-2xl">{this.props.profile.position}</p>
           </div>
         </div>
       </div>
