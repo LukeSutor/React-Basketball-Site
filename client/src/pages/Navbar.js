@@ -13,13 +13,21 @@ import log_out from './images/logout.png'
 import down_arrow from './images/down_arrow.png'
 import { useTransition, animated } from 'react-spring'
 
-const Navbar = (props) => {
+const Navbar = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 
-  // Animation code
+  // Track scroll position
+  const [scrolled, setScrolled] = useState(false)
+
+  // Animation for scroll to top button
+  const pageTopTransition = useTransition(scrolled, null, {
+    from: { position: 'fixed', bottom: -20, right: 20, zIndex: 10, opacity: 0, marginTop: 100 },
+    enter: { position: 'fixed', bottom: 20, right: 20, zIndex: 10, opacity: 1, marginTop: 0 },
+    leave: { bottom: -20, opacity: 0 }
+  })
 
   // Profile tab animation
   const [profileOpen, setProfileOpen] = useState(false);
@@ -130,7 +138,7 @@ const Navbar = (props) => {
       {profileTransition.map(({ item, key, props }) =>
         item
           ?
-          <animated.div style={props} className={`absolute z-10 right-8 -my-4 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
+          <animated.div key={key} style={props} className={`absolute z-10 right-8 -my-4 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
               ${isAuthenticated ? "" : "hidden"}`}>
             <div className="flex flex-col text-left text-sm">
               <NavLink to='/edit-profile'
@@ -144,8 +152,30 @@ const Navbar = (props) => {
                 onClick={() => setProfileOpen(!profileOpen)}>Manage</NavLink>}
             </div>
           </animated.div>
-          : <></>)}
+          : <></>
+      )}
+
+      {/* Button to travel back to the top of the page */}
+      {pageTopTransition.map(({ item, key, props }) =>
+        item ?
+        <animated.div key={key} style={props}>
+          <button onClick={() => window.scrollTo(0, 0)}
+          className="text-white py-2 px-4 rounded-full bg-main focus:outline-none">Top</button>
+        </animated.div>
+        :
+        <></>
+      )}
+        <script>
+      {window.addEventListener('scroll', (event) => 
+      {if(window.scrollY > 200) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }}
+      )}
+    </script>
     </nav>
+
   );
 };
 
