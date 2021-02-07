@@ -1,0 +1,45 @@
+#circle {
+  stroke-dasharray: 138.5px;
+  stroke-dashoffset: 138.5px;
+  animation: circle-animation 2s ease forwards;
+}
+
+/* #3baac5 */
+#s {
+  stroke-width: 0.5px;
+  stroke-dasharray: 58px;
+  stroke-dashoffset: 58px;
+  animation: s-animation 2s ease forwards 0.5s;
+}
+
+#text {
+  stroke-width: 1.5px;
+  stroke-dasharray: 150px;
+  stroke-dashoffset: 150px;
+  animation: text-animation 2s ease forwards 1s;
+}
+
+@keyframes circle-animation {
+ to {
+   stroke-dashoffset: 0;
+ }
+}
+
+@keyframes s-animation {
+  from {
+    fill: transparent
+  } to {
+    stroke-dashoffset: 0;
+    fill: #3baac5
+ }
+}
+
+@keyframes text-animation {
+  from {
+    fill: transparent;
+  } to {
+
+    stroke-dashoffset: 0;
+    fill: black;
+  }
+}

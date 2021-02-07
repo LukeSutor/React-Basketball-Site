@@ -14,7 +14,7 @@ class Manage extends Component {
   render() {
     const { items } = this.props.item;
     return (
-      this.props.auth0.isAuthenticated && this.props.auth0.user['https://the-stat-sheet.herokuapp.com/admin'] && (
+      this.props.auth0.isAuthenticated && this.props.auth0.user['https://statbreak.herokuapp.com/admin'] && (
         <div>
           <div className="py-4">
             <ul className="flex flex-col items-center">

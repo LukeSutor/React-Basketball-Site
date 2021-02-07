@@ -24,6 +24,7 @@ function Dashboard(props) {
       setEmail(user.email)
     }
     props.getItems()
+    document.title = 'Statbreak | Dashboard'
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

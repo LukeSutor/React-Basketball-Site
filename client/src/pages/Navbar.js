@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import basketball_logo from './images/logo.png'
+import LogoSVG from './images/LogoSVG'
 import hamburger_icon from './images/hamburger_icon.png'
 import home from './images/home.png'
 import dashboard from './images/dashboard.png'
@@ -41,8 +41,9 @@ const Navbar = () => {
   return (
     <nav>
       <div className="z-20 flex justify-between items-center border-gray-100 py-2 md:space-x-4">
-        <NavLink to='/' className="h-12 w-48 ml-4 lg:ml-8 mt-2">
-          <img src={basketball_logo} className="rounded-full" alt="basketball logo" /></NavLink>
+        <NavLink to='/'
+          className="h-min w-min ml-4 lg:ml-8 mt-2">
+          <LogoSVG /></NavLink>
         <ul className="hidden md:flex gap-1 justify-end md:w-1 md:flex-1 text-sm text-gray-500 font-medium">
           <NavLink className="px-4 py-2 rounded-full hover:bg-gray-100"
             exact to='/'
@@ -148,7 +149,7 @@ const Navbar = () => {
                 onClick={() => logout()}>Logout</button>
               {<NavLink to='/manage'
                 className={`text-red-600 font-medium px-4 py-2 focus:outline-none
-                  ${isAuthenticated ? `${user['https://the-stat-sheet.herokuapp.com/admin'] ? "" : "hidden"}` : ""}`}
+                  ${isAuthenticated ? `${user['https://statbreak.herokuapp.com/admin'] ? "" : "hidden"}` : ""}`}
                 onClick={() => setProfileOpen(!profileOpen)}>Manage</NavLink>}
             </div>
           </animated.div>
@@ -158,22 +159,23 @@ const Navbar = () => {
       {/* Button to travel back to the top of the page */}
       {pageTopTransition.map(({ item, key, props }) =>
         item ?
-        <animated.div key={key} style={props}>
-          <button onClick={() => window.scrollTo(0, 0)}
-          className="text-white py-2 px-4 rounded-full bg-main focus:outline-none">Top</button>
-        </animated.div>
-        :
-        <></>
+          <animated.div key={key} style={props}>
+            <button onClick={() => window.scrollTo(0, 0)}
+              className="text-white py-2 px-4 rounded-full bg-main shadow-2xl focus:outline-none">Top</button>
+          </animated.div>
+          :
+          <></>
       )}
-        <script>
-      {window.addEventListener('scroll', (event) => 
-      {if(window.scrollY > 200) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }}
-      )}
-    </script>
+      <script>
+        {window.addEventListener('scroll', (event) => {
+          if (window.scrollY > 200) {
+            setScrolled(true)
+          } else {
+            setScrolled(false)
+          }
+        }
+        )}
+      </script>
     </nav>
 
   );
