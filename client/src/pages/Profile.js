@@ -23,15 +23,21 @@ function ProfilePage(props) {
   const { items } = props.item
 
   useEffect(() => {
-    if (isAuthenticated) {
-      setId(user.sub)
-      setEmail(user.email)
+    if(isAuthenticated) {
+    setId(user.sub)
+    setEmail(user.email)
     }
+    // document.title = `${user.name} | Profile`
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     props.getProfiles(email)
+    if(profile) {
+      document.title = `${profile[0].username} | Profile`
+    } else {
+      document.title = 'Statbreak | Profile'
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email])
 
@@ -58,6 +64,7 @@ function ProfilePage(props) {
   return (
     isAuthenticated && (
       <div>
+        {console.log(props)}
         <div className={`${profile.length === 0 ? "hidden" : ""}`}>
           {/* User's profile page */}
           {profile.map((profile) => (

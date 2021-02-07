@@ -18,7 +18,6 @@ class Upload extends Component {
     }
   }
 
-
   UNSAFE_componentWillMount() {
     this.setState({ email: this.props.auth0.user.email })
     this.setState({ id: this.props.auth0.user.sub })

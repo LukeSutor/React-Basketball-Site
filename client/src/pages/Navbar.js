@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import basketball_logo from './images/logo.png'
+import LogoSVG from './images/LogoSVG'
 import hamburger_icon from './images/hamburger_icon.png'
 import home from './images/home.png'
 import dashboard from './images/dashboard.png'
@@ -13,13 +13,21 @@ import log_out from './images/logout.png'
 import down_arrow from './images/down_arrow.png'
 import { useTransition, animated } from 'react-spring'
 
-const Navbar = (props) => {
+const Navbar = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 
-  // Animation code
+  // Track scroll position
+  const [scrolled, setScrolled] = useState(false)
+
+  // Animation for scroll to top button
+  const pageTopTransition = useTransition(scrolled, null, {
+    from: { position: 'fixed', bottom: -20, right: 20, zIndex: 10, opacity: 0, marginTop: 100 },
+    enter: { position: 'fixed', bottom: 20, right: 20, zIndex: 10, opacity: 1, marginTop: 0 },
+    leave: { bottom: -20, opacity: 0 }
+  })
 
   // Profile tab animation
   const [profileOpen, setProfileOpen] = useState(false);
@@ -33,8 +41,9 @@ const Navbar = (props) => {
   return (
     <nav>
       <div className="z-20 flex justify-between items-center border-gray-100 py-2 md:space-x-4">
-        <NavLink to='/' className="h-12 w-48 ml-4 lg:ml-8 mt-2">
-          <img src={basketball_logo} className="rounded-full" alt="basketball logo" /></NavLink>
+        <NavLink to='/'
+          className="h-min w-min ml-4 lg:ml-8 mt-2">
+          <LogoSVG /></NavLink>
         <ul className="hidden md:flex gap-1 justify-end md:w-1 md:flex-1 text-sm text-gray-500 font-medium">
           <NavLink className="px-4 py-2 rounded-full hover:bg-gray-100"
             exact to='/'
@@ -130,7 +139,7 @@ const Navbar = (props) => {
       {profileTransition.map(({ item, key, props }) =>
         item
           ?
-          <animated.div style={props} className={`absolute z-10 right-8 -my-4 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
+          <animated.div key={key} style={props} className={`absolute z-10 right-8 -my-4 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
               ${isAuthenticated ? "" : "hidden"}`}>
             <div className="flex flex-col text-left text-sm">
               <NavLink to='/edit-profile'
@@ -140,12 +149,35 @@ const Navbar = (props) => {
                 onClick={() => logout()}>Logout</button>
               {<NavLink to='/manage'
                 className={`text-red-600 font-medium px-4 py-2 focus:outline-none
-                  ${isAuthenticated ? `${user['https://the-stat-sheet.herokuapp.com/admin'] ? "" : "hidden"}` : ""}`}
+                  ${isAuthenticated ? `${user['https://statbreak.herokuapp.com/admin'] ? "" : "hidden"}` : ""}`}
                 onClick={() => setProfileOpen(!profileOpen)}>Manage</NavLink>}
             </div>
           </animated.div>
-          : <></>)}
+          : <></>
+      )}
+
+      {/* Button to travel back to the top of the page */}
+      {pageTopTransition.map(({ item, key, props }) =>
+        item ?
+          <animated.div key={key} style={props}>
+            <button onClick={() => window.scrollTo(0, 0)}
+              className="text-white py-2 px-4 rounded-full bg-main shadow-2xl focus:outline-none">Top</button>
+          </animated.div>
+          :
+          <></>
+      )}
+      <script>
+        {window.addEventListener('scroll', (event) => {
+          if (window.scrollY > 200) {
+            setScrolled(true)
+          } else {
+            setScrolled(false)
+          }
+        }
+        )}
+      </script>
     </nav>
+
   );
 };
 
