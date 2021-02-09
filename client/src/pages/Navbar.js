@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import LogoSVG from './images/LogoSVG'
@@ -19,14 +19,69 @@ const Navbar = () => {
 
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
 
-  // Track scroll position
-  const [scrolled, setScrolled] = useState(false)
+  // Create references for each menu to track whether the user clicks outside of them to close them
+  const menuRef = useRef();
+
+  const profileRef = useRef();
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClick);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+      window.removeEventListener('scroll', handleScroll);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  function handleClick(e) {
+    if (profileRef.current && profileRef.current.contains(e.target)) {
+      return;
+    }
+    setProfileOpen(false);
+    if (menuRef.current && menuRef.current.contains(e.target)) {
+      return;
+    }
+    setMenuOpen(false);
+  }
+
+  // Toggle for top of page button
+  const [pageTop, setPageTop] = useState(false)
+
+  // Toggle for mobile navbar
+  const [mobileNav, setMobileNav] = useState(true)
+
+  let prevScrolled = window.pageYOffset;
+
+  function handleScroll() {
+    if (window.scrollY > 200) {
+      setPageTop(true)
+    } else {
+      setPageTop(false)
+    }
+
+    let currScroll = window.pageYOffset
+    if (prevScrolled > currScroll) {
+      setMobileNav(true)
+    } else {
+      setMobileNav(false)
+    }
+    prevScrolled = currScroll
+  }
 
   // Animation for scroll to top button
-  const pageTopTransition = useTransition(scrolled, null, {
+  const pageTopTransition = useTransition(pageTop, null, {
     from: { position: 'fixed', bottom: -20, right: 20, zIndex: 10, opacity: 0, marginTop: 100 },
     enter: { position: 'fixed', bottom: 20, right: 20, zIndex: 10, opacity: 1, marginTop: 0 },
     leave: { bottom: -20, opacity: 0 }
+  })
+
+  // Animation for mobile navbar
+  const mobileNavTransition = useTransition(mobileNav, null, {
+    from: { position: 'fixed', marginBottom: -100 },
+    enter: { position: 'fixed', marginBottom: 0 },
+    leave: { position: 'fixed', marginBottom: -100 }
   })
 
   // Profile tab animation
@@ -47,21 +102,17 @@ const Navbar = () => {
         <ul className="hidden md:flex gap-1 justify-end md:w-1 md:flex-1 text-sm text-gray-500 font-medium">
           <NavLink className="px-4 py-2 rounded-full hover:bg-gray-100"
             exact to='/'
-            onClick={() => setProfileOpen(false)}
             activeClassName="text-black shadow-inner bg-gray-50">Home</NavLink>
           <NavLink className="px-4 py-2 rounded-full hover:bg-gray-100"
             to='/dashboard'
-            onClick={() => setProfileOpen(false)}
             activeClassName="text-black shadow-inner bg-gray-50">Dashboard</NavLink>
           <NavLink className={`px-4 py-2 rounded-full hover:bg-gray-100
             ${isAuthenticated ? "" : "hidden"}`}
             to='/upload'
-            onClick={() => setProfileOpen(false)}
             activeClassName="text-black shadow-inner bg-gray-50">Upload</NavLink>
           <NavLink className={`px-4 py-2 rounded-full hover:bg-gray-100
             ${isAuthenticated ? "" : "hidden"}`}
             to='/profile'
-            onClick={() => setProfileOpen(false)}
             activeClassName="text-black shadow-inner bg-gray-50">Profile</NavLink>
           <button className={`whitespace-nowrap text-white bg-main hover:bg-dark px-4 py-2 mr-4 rounded-full focus:outline-none
             ${isAuthenticated ? "hidden" : ""}`}
@@ -74,14 +125,13 @@ const Navbar = () => {
         </ul>
 
         {/* Hamburger Menu */}
-
         <div>
           <button className="md:hidden w-9 h-9 align-middle mx-4 focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>
             <img src={hamburger_icon} alt="Hamburger Menu" />
           </button>
         </div>
       </div>
-      <div className={`absolute z-10 bg-white h-relative w-full ${menuOpen ? "visible" : "hidden"}`}>
+      <div ref={menuRef} className={`absolute z-10 bg-white h-relative w-full ${menuOpen ? "visible" : "hidden"}`}>
         <ul className="flex flex-col gap-2 justify-between px-2 py-4">
           <li className="flex flex-row hover:bg-gray-100 rounded-full">
             <img src={home} alt="" className="h-6 w-6 mx-4 my-auto" />
@@ -135,25 +185,58 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      {/* Dropdown menu for profile icon */}
+
+      {/* Mini navbar for mobile devices */}
+      {mobileNavTransition.map(({ item, key, props }) =>
+        item &&
+        <animated.div key={key} style={props} className="md:hidden fixed bottom-0 h-relative w-full z-10 text-center overflow-hidden bg-main">
+          <div className="flex flex-row justify-evenly">
+            <NavLink exact to='/'
+              className={`flex flex-col text-xl py-2 w-full
+            ${isAuthenticated ? "hidden" : ""}`}
+              activeClassName="bg-dark">
+              <img src={home} className="mx-auto h-8 w-8" alt="" />Home</NavLink>
+            <NavLink to='/dashboard'
+              className="flex flex-col text-xl py-2 w-full"
+              activeClassName="bg-dark">
+              <img src={dashboard} className="mx-auto h-8 w-8" alt="" />Dashboard</NavLink>
+            <NavLink to='/upload'
+              className={`flex flex-col text-xl py-2 w-full
+            ${isAuthenticated ? "" : "hidden"}`}
+              activeClassName="bg-dark">
+              <img src={upload} className="mx-auto h-8 w-8" alt="" />Upload</NavLink>
+            <NavLink to='/profile'
+              className={`flex flex-col text-xl py-2 w-full
+            ${isAuthenticated ? "" : "hidden"}`}
+              activeClassName="bg-dark">
+              <img src={profile} className="mx-auto h-8 w-8" alt="" />Profile</NavLink>
+            <li onClick={(() => loginWithRedirect())}
+              className={`flex flex-col w-full mx-auto py-2 focus:outline-none
+            ${isAuthenticated ? "hidden" : ""}`}>
+              <img src={sign_in} className="mx-auto h-8 w-8" alt="" />
+              <button className="text-xl focus:outline-none">Sign In</button>
+            </li>
+          </div>
+        </animated.div>
+      )}
+
+      {/* Dropdown menu for profile */}
       {profileTransition.map(({ item, key, props }) =>
-        item
-          ?
-          <animated.div key={key} style={props} className={`absolute z-10 right-8 -my-4 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
+        item &&
+        <animated.div ref={profileRef} key={key} style={props} className={`absolute z-10 right-8 -my-4 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
               ${isAuthenticated ? "" : "hidden"}`}>
-            <div className="flex flex-col text-left text-sm">
-              <NavLink to='/edit-profile'
-                className="font-medium px-4 py-2 focus:outline-none" // Used to have check if user was on another user's profile and hide it
-                onClick={() => setProfileOpen(!profileOpen)}>Edit Profile</NavLink>
-              <button className="font-medium px-4 py-1 focus:outline-none text-left"
-                onClick={() => logout()}>Logout</button>
-              {<NavLink to='/manage'
-                className={`text-red-600 font-medium px-4 py-2 focus:outline-none
+          <div className="flex flex-col text-left text-sm">
+            <NavLink to='/edit-profile'
+              className="font-medium px-4 py-2 focus:outline-none" // Used to have check if user was on another user's profile and hide it
+              onClick={() => setProfileOpen(!profileOpen)}>Edit Profile</NavLink>
+            <button className="font-medium px-4 py-1 focus:outline-none text-left"
+              onClick={() => logout()}>Logout</button>
+            {<NavLink to='/manage'
+              className={`text-red-600 font-medium px-4 py-2 focus:outline-none
                   ${isAuthenticated ? `${user['https://statbreak.herokuapp.com/admin'] ? "" : "hidden"}` : ""}`}
-                onClick={() => setProfileOpen(!profileOpen)}>Manage</NavLink>}
-            </div>
-          </animated.div>
-          : <></>
+              onClick={() => setProfileOpen(!profileOpen)}>Manage</NavLink>}
+          </div>
+        </animated.div>
       )}
 
       {/* Button to travel back to the top of the page */}
@@ -166,16 +249,6 @@ const Navbar = () => {
           :
           <></>
       )}
-      <script>
-        {window.addEventListener('scroll', (event) => {
-          if (window.scrollY > 200) {
-            setScrolled(true)
-          } else {
-            setScrolled(false)
-          }
-        }
-        )}
-      </script>
     </nav>
 
   );

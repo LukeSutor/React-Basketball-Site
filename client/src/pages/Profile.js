@@ -33,7 +33,7 @@ function ProfilePage(props) {
 
   useEffect(() => {
     props.getProfiles(email)
-    if(profile) {
+    if(profile[0]) {
       document.title = `${profile[0].username} | Profile`
     } else {
       document.title = 'Statbreak | Profile'
@@ -63,8 +63,7 @@ function ProfilePage(props) {
 
   return (
     isAuthenticated && (
-      <div>
-        {console.log(props)}
+      <div className="mb-44">
         <div className={`${profile.length === 0 ? "hidden" : ""}`}>
           {/* User's profile page */}
           {profile.map((profile) => (

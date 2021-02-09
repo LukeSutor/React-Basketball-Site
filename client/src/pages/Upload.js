@@ -82,9 +82,9 @@ class Upload extends Component {
           </div>
 
           {/* Form allowing user to enter their stats, hidden if the user hasn't finalized their account */}
-          <div className={`bg-gray-50 w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4
+          <div className={`bg-gray-50 w-full md:w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4
           ${profile.length === 0 ? "hidden" : ""}`}>
-            <form className="w-full md:w-3/4 mx-auto">
+            <form className="w-4/5 md:w-3/4 mx-auto">
               <div className="py-4">
                 <h2 className="text-2xl font-semibold mx-5">Upload</h2>
                 <div className="mx-4 my-4 border-2 border-none rounded-full shadow-md overflow-hidden">
