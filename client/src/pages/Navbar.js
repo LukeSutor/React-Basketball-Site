@@ -3,17 +3,18 @@ import { NavLink, withRouter } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import LogoSVG from './images/LogoSVG'
 import hamburger_icon from './images/hamburger_icon.png'
-import home from './images/home.png'
-import dashboard from './images/dashboard.png'
-import upload from './images/upload.png'
-import profile from './images/profile.png'
-import edit_profile from './images/edit_profiile.png'
-import sign_in from './images/sign_in.png'
-import log_out from './images/logout.png'
+import x_icon from './images/x_icon.png'
+import Home from './images/Home.js'
+import Dashboard from './images/Dashboard.js'
+import Upload from './images/Upload.js'
+import Profile from './images/Profile.js'
+import EditProfile from './images/EditProfile.js'
+import SignIn from './images/SignIn.js'
+import Logout from './images/Logout.js'
 import down_arrow from './images/down_arrow.png'
 import { useTransition, animated } from 'react-spring'
 
-const Navbar = () => {
+const Navbar = (props) => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -23,6 +24,8 @@ const Navbar = () => {
   const menuRef = useRef();
 
   const profileRef = useRef();
+
+  const { pathname } = props.location
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClick);
@@ -62,7 +65,7 @@ const Navbar = () => {
     }
 
     let currScroll = window.pageYOffset
-    if (prevScrolled > currScroll) {
+    if (prevScrolled > currScroll || window.scrollY < 150) {
       setMobileNav(true)
     } else {
       setMobileNav(false)
@@ -70,14 +73,22 @@ const Navbar = () => {
     prevScrolled = currScroll
   }
 
-  // Animation for scroll to top button
+  // Mobile menu animation
+  const menuTransition = useTransition(menuOpen, null, {
+    config: { mass: 1, tension: 200, friction: 30 },
+    from: { marginRight: -400 },
+    enter: { opacity: 1, marginRight: 0 },
+    leave: { opacity: 0 }
+  })
+
+  // Scroll to top button animation
   const pageTopTransition = useTransition(pageTop, null, {
     from: { position: 'fixed', bottom: -20, right: 20, zIndex: 10, opacity: 0, marginTop: 100 },
     enter: { position: 'fixed', bottom: 20, right: 20, zIndex: 10, opacity: 1, marginTop: 0 },
     leave: { bottom: -20, opacity: 0 }
   })
 
-  // Animation for mobile navbar
+  // Mobile navbar Animation
   const mobileNavTransition = useTransition(mobileNav, null, {
     from: { position: 'fixed', marginBottom: -100 },
     enter: { position: 'fixed', marginBottom: 0 },
@@ -126,131 +137,123 @@ const Navbar = () => {
 
         {/* Hamburger Menu */}
         <div>
-          <button className="md:hidden w-9 h-9 align-middle mx-4 focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>
+          <button className="md:hidden w-9 h-9 align-middle mx-4 focus:outline-none" onClick={() => setMenuOpen(true)}>
             <img src={hamburger_icon} alt="Hamburger Menu" />
           </button>
         </div>
       </div>
-      <div ref={menuRef} className={`absolute z-10 bg-white h-relative w-full ${menuOpen ? "visible" : "hidden"}`}>
-        <ul className="flex flex-col gap-2 justify-between px-2 py-4">
-          <li className="flex flex-row hover:bg-gray-100 rounded-full">
-            <img src={home} alt="" className="h-6 w-6 mx-4 my-auto" />
+      {menuTransition.map(({ item, key, props }) =>
+        item &&
+        <animated.div style={props} key={key} ref={menuRef} className="absolute z-10 text-gray-500 text-lg bg-white h-relative w-3/4 right-0 top-0">
+          <ul className="flex flex-col gap-2 justify-between px-2 py-4">
+            <img src={x_icon} alt="close" className="w-6 h-6 ml-auto mr-4 mb-6 align-middle focus:outline-none" onClick={() => setMenuOpen(false)} />
             <NavLink exact to='/'
-              className="py-2 rounded-full hover:bg-gray-100 text-lg"
-              activeClassName="underline"
-              onClick={() => setMenuOpen(!menuOpen)}>Home</NavLink>
-          </li>
-          <li className="flex flex-row hover:bg-gray-100 rounded-full">
-            <img src={dashboard} alt="" className="h-6 w-6 mx-4 my-auto" />
+              className="flex flex-row py-2 px-4 rounded-full hover:bg-gray-100"
+              activeClassName="text-black bg-gray-100"
+              onClick={() => setMenuOpen(!menuOpen)}>
+              <div className="mr-4 my-auto"><Home color={`${pathname === '/' ? "#3baac5" : "#9ca3af"}`} /></div>Home</NavLink>
             <NavLink to='/dashboard'
-              className="py-2 rounded-full hover:bg-gray-100 text-lg"
-              activeClassName="underline"
-              onClick={() => setMenuOpen(!menuOpen)}>Dashboard</NavLink>
-          </li>
-          <li className={`flex flex-row hover:bg-gray-100 rounded-full
-            ${isAuthenticated ? "" : "hidden"}`}>
-            <img src={upload} alt="" className="h-6 w-6 mx-4 my-auto" />
+              className="flex flex-row py-2 px-4 rounded-full hover:bg-gray-100"
+              activeClassName="text-black bg-gray-100"
+              onClick={() => setMenuOpen(!menuOpen)}>
+              <div className="mr-4 my-auto"><Dashboard color={`${pathname === '/dashboard' ? "#3baac5" : "#9ca3af"}`} /></div>Dashboard</NavLink>
             <NavLink to='/upload'
-              className="py-2 rounded-full hover:bg-gray-100 text-lg"
-              activeClassName="underline"
-              onClick={() => setMenuOpen(!menuOpen)}>Upload</NavLink>
-          </li>
-          <li className={`flex flex-row hover:bg-gray-100 rounded-full
-            ${isAuthenticated ? "" : "hidden"}`}>
-            <img src={profile} alt="" className="h-6 w-6 mx-4 my-auto" />
+              className={`flex flex-row py-2 px-4 rounded-full hover:bg-gray-100
+              ${isAuthenticated ? "" : "hidden"}`}
+              activeClassName="text-black bg-gray-100"
+              onClick={() => setMenuOpen(!menuOpen)}>
+              <div className="mr-4 my-auto"><Upload color={`${pathname === '/upload' ? "#3baac5" : "#9ca3af"}`} /></div>Upload</NavLink>
             <NavLink to='/profile'
-              className="py-2 rounded-full hover:bg-gray-100 text-lg"
-              activeClassName="underline"
-              onClick={() => setMenuOpen(!menuOpen)}>Profile</NavLink>
-          </li>
-          <li className={`flex flex-row hover:bg-gray-100 rounded-full
-            ${isAuthenticated ? "" : "hidden"}`}>
-            <img src={edit_profile} alt="" className="h-6 w-6 mx-4 my-auto" />
+              className={`flex flex-row py-2 px-4 rounded-full hover:bg-gray-100
+              ${isAuthenticated ? "" : "hidden"}`}
+              activeClassName="text-black bg-gray-100"
+              onClick={() => setMenuOpen(!menuOpen)}>
+              <div className="mr-4 my-auto"><Profile color={`${pathname === '/profile' ? "#3baac5" : "#9ca3af"}`} /></div>Profile</NavLink>
             <NavLink to='/edit-profile'
-              className="py-2 rounded-full hover:bg-gray-100 text-lg"
-              activeClassName="underline"
-              onClick={() => setMenuOpen(!menuOpen)}>Edit Profile</NavLink>
-          </li>
-          <li className={`flex flex-row hover:bg-gray-100 rounded-full
-            ${isAuthenticated ? "hidden" : ""}`}>
-            <img src={sign_in} alt="" className="h-6 w-6 mx-4 my-auto" />
-            <button className="py-2 rounded-full hover:bg-gray-100 text-lg focus:outline-none"
-              onClick={() => loginWithRedirect()}>Sign In</button>
-          </li>
-          <li className={`flex flex-row hover:bg-gray-100 rounded-full
-            ${isAuthenticated ? "" : "hidden"}`}>
-            <img src={log_out} alt="" className="h-6 w-6 mx-4 my-auto" />
-            <button className="py-2 rounded-full hover:bg-gray-100 text-lg focus:outline-none"
-              onClick={() => logout()}>Logout</button>
-          </li>
-        </ul>
-      </div>
+              className={`flex flex-row py-2 px-4 rounded-full hover:bg-gray-100
+              ${isAuthenticated ? "" : "hidden"}`}
+              activeClassName="text-black bg-gray-100"
+              onClick={() => setMenuOpen(!menuOpen)}>
+              <div className="mr-4 my-auto"><EditProfile color={`${pathname === '/edit-profile' ? "#3baac5" : "#9ca3af"}`} /></div>Edit Profile</NavLink>
+            <button onClick={() => loginWithRedirect()}
+              className={`flex flex-row py-2 px-4 rounded-full hover:bg-gray-100 focus:outline-none
+              ${isAuthenticated ? "hidden" : ""}`}>
+              <div className="mr-4 my-auto"><SignIn color="#9ca3af" /></div>Sign In</button>
+            <button onClick={() => logout()}
+              className={`flex flex-row py-2 px-4 rounded-full hover:bg-gray-100 focus:outline-none
+              ${isAuthenticated ? "" : "hidden"}`}>
+              <div className="mr-4 my-auto"><Logout color="#9ca3af" /></div>Logout</button>
+          </ul>
+        </animated.div>
+      )}
 
       {/* Mini navbar for mobile devices */}
       {mobileNavTransition.map(({ item, key, props }) =>
         item &&
-        <animated.div key={key} style={props} className="md:hidden fixed bottom-0 h-relative w-full z-10 text-center overflow-hidden bg-main">
+        <animated.div key={key} style={props} className="md:hidden fixed bottom-0 h-relative w-full z-10 text-gray-500 text-sm text-center overflow-hidden bg-white border-t-2 border-gray-100">
           <div className="flex flex-row justify-evenly">
             <NavLink exact to='/'
-              className={`flex flex-col text-xl py-2 w-full
+              className={`flex flex-col py-2 w-full
             ${isAuthenticated ? "hidden" : ""}`}
-              activeClassName="bg-dark">
-              <img src={home} className="mx-auto h-8 w-8" alt="" />Home</NavLink>
+              activeClassName="bg-gray-100 text-black">
+              <Home color={`${pathname === '/' ? "#3baac5" : "#9ca3af"}`} />Home</NavLink>
             <NavLink to='/dashboard'
-              className="flex flex-col text-xl py-2 w-full"
-              activeClassName="bg-dark">
-              <img src={dashboard} className="mx-auto h-8 w-8" alt="" />Dashboard</NavLink>
+              className="flex flex-col py-2 w-full"
+              activeClassName="bg-gray-100 text-black">
+              <Dashboard color={`${pathname === '/dashboard' ? "#3baac5" : "#9ca3af"}`} />Dashboard</NavLink>
             <NavLink to='/upload'
-              className={`flex flex-col text-xl py-2 w-full
+              className={`flex flex-col py-2 w-full
             ${isAuthenticated ? "" : "hidden"}`}
-              activeClassName="bg-dark">
-              <img src={upload} className="mx-auto h-8 w-8" alt="" />Upload</NavLink>
+              activeClassName="bg-gray-100 text-black">
+              <Upload color={`${pathname === '/upload' ? "#3baac5" : "#9ca3af"}`} />Upload</NavLink>
             <NavLink to='/profile'
-              className={`flex flex-col text-xl py-2 w-full
+              className={`flex flex-col py-2 w-full
             ${isAuthenticated ? "" : "hidden"}`}
-              activeClassName="bg-dark">
-              <img src={profile} className="mx-auto h-8 w-8" alt="" />Profile</NavLink>
+              activeClassName="bg-gray-100 text-black">
+              <Profile color={`${pathname === '/profile' ? "#3baac5" : "#9ca3af"}`} />Profile</NavLink>
             <li onClick={(() => loginWithRedirect())}
               className={`flex flex-col w-full mx-auto py-2 focus:outline-none
             ${isAuthenticated ? "hidden" : ""}`}>
-              <img src={sign_in} className="mx-auto h-8 w-8" alt="" />
-              <button className="text-xl focus:outline-none">Sign In</button>
+              <SignIn color="#9ca3af" />
+              <button className="focus:outline-none">Sign In</button>
             </li>
           </div>
         </animated.div>
-      )}
+      )
+      }
 
       {/* Dropdown menu for profile */}
-      {profileTransition.map(({ item, key, props }) =>
-        item &&
-        <animated.div ref={profileRef} key={key} style={props} className={`absolute z-10 right-8 -my-4 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
+      {
+        profileTransition.map(({ item, key, props }) =>
+          item &&
+          <animated.div ref={profileRef} key={key} style={props} className={`absolute z-10 right-8 -my-4 bg-white h-relative w-1/6 rounded-lg ring-1 ring-black ring-opacity-5 
               ${isAuthenticated ? "" : "hidden"}`}>
-          <div className="flex flex-col text-left text-sm">
-            <NavLink to='/edit-profile'
-              className="font-medium px-4 py-2 focus:outline-none" // Used to have check if user was on another user's profile and hide it
-              onClick={() => setProfileOpen(!profileOpen)}>Edit Profile</NavLink>
-            <button className="font-medium px-4 py-1 focus:outline-none text-left"
-              onClick={() => logout()}>Logout</button>
-            {<NavLink to='/manage'
-              className={`text-red-600 font-medium px-4 py-2 focus:outline-none
+            <div className="flex flex-col text-left text-sm">
+              <NavLink to='/edit-profile'
+                className="font-medium px-4 py-2 focus:outline-none" // Used to have check if user was on another user's profile and hide it
+                onClick={() => setProfileOpen(!profileOpen)}>Edit Profile</NavLink>
+              <button className="font-medium px-4 py-1 focus:outline-none text-left"
+                onClick={() => logout()}>Logout</button>
+              {<NavLink to='/manage'
+                className={`text-red-600 font-medium px-4 py-2 focus:outline-none
                   ${isAuthenticated ? `${user['https://statbreak.herokuapp.com/admin'] ? "" : "hidden"}` : ""}`}
-              onClick={() => setProfileOpen(!profileOpen)}>Manage</NavLink>}
-          </div>
-        </animated.div>
-      )}
+                onClick={() => setProfileOpen(!profileOpen)}>Manage</NavLink>}
+            </div>
+          </animated.div>
+        )
+      }
 
       {/* Button to travel back to the top of the page */}
-      {pageTopTransition.map(({ item, key, props }) =>
-        item ?
+      {
+        pageTopTransition.map(({ item, key, props }) =>
+          item &&
           <animated.div key={key} style={props}>
             <button onClick={() => window.scrollTo(0, 0)}
               className="text-white py-2 px-4 rounded-full bg-main shadow-2xl focus:outline-none">Top</button>
           </animated.div>
-          :
-          <></>
-      )}
-    </nav>
-
+        )
+      }
+    </nav >
   );
 };
 

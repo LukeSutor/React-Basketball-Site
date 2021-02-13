@@ -65,8 +65,8 @@ class EditProfile extends Component {
   render() {
     return (
         <div>
-          <div className="bg-gray-50 w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4">
-            <form className="w-full md:w-3/4 mx-auto">
+          <div className="bg-gray-50 w-full md:w-3/4 h-auto rounded-lg shadow-md mx-auto overflow-hidden my-4">
+            <form className="w-4/5 md:w-3/4 mx-auto">
               <div className="py-4">
                 <h2 className="text-2xl font-semibold mx-5">Edit Profile</h2>
                 <div className="my-4 flex justify-between">
