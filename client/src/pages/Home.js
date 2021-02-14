@@ -1,26 +1,18 @@
 import React, { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useTransition, animated } from 'react-spring'
 import BlueBasketballSVG from './images/BlueBasketballSVG'
 import iPhone from './images/iPhone.png'
 import Graph from './images/Graph'
 import Record from './images/Record'
 import Share from './images/Share'
 
-function Home() {
+function Home(props) {
 
   const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   useEffect(() => {
     document.title = 'Statbreak'
   }, [])
-
-  // Animation for words and button
-  const transition = useTransition(true, null, {
-    config: { mass: 1, tension: 200, friction: 40 },
-    from: { opacity: 0, marginTop: 230 },
-    enter: { opacity: 1, marginTop: 0 },
-  })
 
   return (
     <div>
@@ -44,14 +36,19 @@ function Home() {
               </div>
             </div>
             <div className="bg-main text-center w-min mx-auto rounded-full whitespace-nowrap hover:bg-dark mt-14 md:mt-8">
-                <button className={`text-white text-lg md:text-lg font-semibold px-4 py-2 focus:outline-none
+              <button className={`text-white text-lg md:text-lg font-semibold px-4 py-2 focus:outline-none
               ${isAuthenticated ? "hidden" : ""}`}
-                  onClick={() => loginWithRedirect()}>Get Started</button>
-              </div>
+                onClick={() => loginWithRedirect()}>Get Started</button>
+            </div>
+            <div className="bg-main text-center w-min mx-auto rounded-full whitespace-nowrap hover:bg-dark mt-14 md:mt-8">
+              <button className={`text-white text-lg md:text-lg font-semibold px-4 py-2 focus:outline-none
+              ${isAuthenticated ? "" : "hidden"}`}
+                onClick={() => props.history.push('/upload')}>Post a Game</button>
+            </div>
           </div>
         </div>
         <div className="relative hidden md:flex z-20 w-1/3 mt-8">
-          <img src={iPhone} alt="" className="mx-auto my-auto" style={{ maxWidth: "12em" }}/>
+          <img src={iPhone} alt="" className="mx-auto my-auto" style={{ maxWidth: "12em" }} />
         </div>
       </div>
     </div>
