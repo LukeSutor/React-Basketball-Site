@@ -114,7 +114,7 @@ function Dashboard(props) {
               <div className="w-full" />
               <div className="flex flex-col text-left w-min transform">
                 <button onClick={() => setSort(0)}
-                  className={`text-base md:text-lg w-min my-1 py-0.5 px-4 rounded-full hover:bg-gray-200 focus:outline-none
+                  className={`text-base md:text-lg w-min my-1 py-1 px-4 rounded-full hover:bg-gray-200 focus:outline-none
           ${sort === 0 ? "bg-main text-white hover:bg-main" : ""}`}>Date</button>
                 <button onClick={() => setSort(1)}
                   className={`text-base md:text-lg w-min my-1 py-1 px-4 rounded-full hover:bg-gray-200 focus:outline-none
