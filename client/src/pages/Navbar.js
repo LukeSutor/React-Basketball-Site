@@ -113,7 +113,7 @@ const Navbar = (props) => {
         <ul className="hidden md:flex gap-1 justify-end md:w-1 md:flex-1 text-sm text-gray-500 font-medium">
           <NavLink className="px-4 py-2 rounded-full hover:bg-gray-100 hover:bg-opacity-50"
             exact to='/'
-            activeClassName="text-black shadow-inner bg-gray-50">Home</NavLink>
+            activeClassName="text-black shadow-inner bg-gray-50 hover:none">Home</NavLink>
           <NavLink className="px-4 py-2 rounded-full hover:bg-gray-100 hover:bg-opacity-50"
             to='/dashboard'
             activeClassName="text-black shadow-inner bg-gray-50">Dashboard</NavLink>
@@ -231,13 +231,13 @@ const Navbar = (props) => {
             <div className="flex flex-col text-left text-sm">
               <NavLink to='/edit-profile'
                 className="font-medium px-4 py-2 focus:outline-none" // Used to have check if user was on another user's profile and hide it
-                onClick={() => setProfileOpen(!profileOpen)}>Edit Profile</NavLink>
+                onClick={() => setProfileOpen(false)}>Edit Profile</NavLink>
               <button className="font-medium px-4 py-1 focus:outline-none text-left"
                 onClick={() => logout()}>Logout</button>
               {<NavLink to='/manage'
                 className={`text-red-600 font-medium px-4 py-2 focus:outline-none
                   ${isAuthenticated ? `${user['https://statbreak.herokuapp.com/admin'] ? "" : "hidden"}` : ""}`}
-                onClick={() => setProfileOpen(!profileOpen)}>Manage</NavLink>}
+                onClick={() => setProfileOpen(false)}>Manage</NavLink>}
             </div>
           </animated.div>
         )

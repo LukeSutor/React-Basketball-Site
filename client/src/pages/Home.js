@@ -21,7 +21,7 @@ function Home(props) {
         <div className="w-full md:w-3/5 mx-auto">
           <div className="mx-auto text-center">
             <h1 className="text-6xl md:text-7xl lg:text-8xl font-semibold my-20 md:my-8">Statbreak</h1>
-            <div className="flex flex-row flex-wrap justify-around text-md md:text-xl">
+            <div className="flex flex-row flex-wrap justify-around text-base md:text-xl">
               <div className="flex flex-col w-28 md:w-40 lg:w-44">
                 <Record />
                 <p className="my-2">Record your <br /> stats</p>
