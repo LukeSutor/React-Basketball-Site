@@ -17,7 +17,7 @@ function Dashboard(props) {
 
   const [sort, setSort] = useState(0)
 
-  const [showFilter, setShowFilter] = useState(false);
+  const [showSort, setShowSort] = useState(false);
 
   const { isAuthenticated, user } = useAuth0()
 
@@ -54,7 +54,7 @@ function Dashboard(props) {
     if (sortRef.current && sortRef.current.contains(e.target)) {
       return;
     }
-    setShowFilter(false)
+    setShowSort(false)
   }
 
   switch (sort) {
@@ -91,7 +91,7 @@ function Dashboard(props) {
   })
 
   // React Spring transition for sort
-  const sortTransition = useTransition(showFilter, null, {
+  const sortTransition = useTransition(showSort, null, {
     from: { transform: 'translate3d(-100%, 0, 0)' },
     enter: { transform: 'translate3d(0, 0, 0)' },
     leave: { transform: 'translate3d(-100%, 0, 0)' }
@@ -100,7 +100,7 @@ function Dashboard(props) {
   return (
     <div>
       <div className="fixed z-20 left-0 mt-20 inline-flex">
-        <button onClick={() => setShowFilter(true)}
+        <button onClick={() => setShowSort(true)}
           className="transform rotate-90 -ml-5 px-2 py-1 inline-flex rounded-t-lg bg-gray-200 bg-opacity-50 hover:bg-opacity-100 focus:outline-none">
           <img src={down_arrow} alt="" className="w-3 h-3 mr-2 my-auto transform rotate-180" />Filter</button>
         {sortTransition.map(({ item, key, props }) =>
@@ -108,7 +108,7 @@ function Dashboard(props) {
           <animated.div key={key} style={props} ref={sortRef} className="fixed z-20 w-2/5 md:w-1/4 lg:w-1/5 -mt-5 bg-gray-100 rounded-r-lg shadow-md">
             <div className="flex flex-row justify-around">
               <p className="text-xl md:text-2xl pb-2 font-semibold">Sort By</p>
-              <img src={x_icon} alt="close" className="h-3 md:h-4 w-3 md:w-4 my-auto" onClick={() => setShowFilter(false)} />
+              <img src={x_icon} alt="close" className="h-3 md:h-4 w-3 md:w-4 my-auto" onClick={() => setShowSort(false)} />
             </div>
             <div className="flex flex-row">
               <div className="w-full" />
